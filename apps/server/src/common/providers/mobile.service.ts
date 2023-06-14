@@ -216,13 +216,13 @@ export class MobileService {
 
   async updateMobileVariantPrices<T>(
     _id: string,
-    variantNewPrice: VariantDto[],
+    newPrice: VariantDto[],
   ): Promise<T> {
     try {
       const id = this.utilsService.verifyId(_id);
       const updatedOptions = await this.mobileModel.updateOne(
         { _id: id },
-        { $set: { variant: variantNewPrice } },
+        { $set: { variants: newPrice } },
       );
       if (!updatedOptions) throw new NotFoundException('Document not found');
       return updatedOptions as T;

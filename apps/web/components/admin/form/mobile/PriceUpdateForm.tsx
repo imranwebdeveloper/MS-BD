@@ -1,36 +1,46 @@
 "use client";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { Variant } from "@/types/Variant";
-import { useUpdateMobilePriceMutation } from "@/redux/api/adminApiSlice";
 import { useRouter } from "next/navigation";
-import { Mobile } from "@/types/mobile";
-import LoadingSmall from "../../shared/LoadingSmall";
+import { PhoneVariants, Phone } from "types";
 
 interface Props {
-  mobile: any;
+  mobile: Phone;
 }
 
 const PriceUpdateForm: React.FC<Props> = ({ mobile }) => {
-  const [newPrice, setNewPrice] = useState<Variant[]>();
-  // const [updateMobilePrice, { isLoading }] = useUpdateMobilePriceMutation();
+  const [newPrice, setNewPrice] = useState<PhoneVariants[]>();
   const router = useRouter();
 
   const handlePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     const price = e.target.value;
     const index = parseInt(e.target.name.split("-")[1]);
     const variant = e.target.name.split("-")[0] as "official" | "unofficial";
-    const newData = mobile.variant;
+    const newData = mobile.variants;
     newData[index][variant] = Number(price);
     setNewPrice(newData);
   };
 
   const submitHandler = async () => {
+    const token = localStorage.getItem(process.env["TOKEN_NAME"] as string);
     try {
-      if (newPrice) {
-        // await updateMobilePrice({ id: mobile?._id, variant: newPrice });
-        toast.success("New price updated");
-        router.refresh();
+      if (newPrice && token) {
+        const res = await fetch(
+          `${process.env["API_URL"]}/mobiles/update-price`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: token,
+            },
+            body: JSON.stringify({ id: mobile._id, variants: newPrice }),
+          }
+        );
+
+        const data = await res.json();
+        console.log(data);
+        // toast.success("New price updated");
+        // router.refresh();
       }
     } catch (error) {
       console.log(error);
@@ -44,7 +54,7 @@ const PriceUpdateForm: React.FC<Props> = ({ mobile }) => {
         <p>Official Price</p> <p>Unofficial Price</p>
       </div>
 
-      {mobile.variants.map((item: any, i: number) => {
+      {mobile.variants.map((item: PhoneVariants, i: number) => {
         return (
           <div key={i} className="flex gap-2">
             <p className="flex w-full items-center">

@@ -1,15 +1,14 @@
 import Image from "next/image";
 import PriceUpdateForm from "@/components/admin/form/mobile/PriceUpdateForm";
-import ContentUpdateFrom from "@/components/admin/form/mobile/ContentUpdateFrom";
-import { ReduxProviders } from "@/providers/ReduxProvider";
 import { headers } from "@/lib/fetchHeader";
 import { notFound } from "next/navigation";
 
 import { Metadata } from "next";
 import { MetaData } from "@/lib/metaData";
+import { Phone } from "types";
 export const metadata: Metadata = MetaData.Admin.Mobiles.Update;
 
-const getData = async (id: string) => {
+const getData = async (id: string): Promise<{ data: Phone }> => {
   const res = await fetch(`${process.env["API_URL"]}/mobiles/${id}` as string, {
     cache: "no-store",
     headers,
