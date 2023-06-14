@@ -8,12 +8,12 @@ import { Mobile } from "@/types/mobile";
 import LoadingSmall from "../../shared/LoadingSmall";
 
 interface Props {
-  mobile: Mobile;
+  mobile: any;
 }
 
 const PriceUpdateForm: React.FC<Props> = ({ mobile }) => {
   const [newPrice, setNewPrice] = useState<Variant[]>();
-  const [updateMobilePrice, { isLoading }] = useUpdateMobilePriceMutation();
+  // const [updateMobilePrice, { isLoading }] = useUpdateMobilePriceMutation();
   const router = useRouter();
 
   const handlePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +28,7 @@ const PriceUpdateForm: React.FC<Props> = ({ mobile }) => {
   const submitHandler = async () => {
     try {
       if (newPrice) {
-        await updateMobilePrice({ id: mobile?._id, variant: newPrice });
+        // await updateMobilePrice({ id: mobile?._id, variant: newPrice });
         toast.success("New price updated");
         router.refresh();
       }
@@ -44,11 +44,11 @@ const PriceUpdateForm: React.FC<Props> = ({ mobile }) => {
         <p>Official Price</p> <p>Unofficial Price</p>
       </div>
 
-      {mobile.variant.map((item: Variant, i: number) => {
+      {mobile.variants.map((item: any, i: number) => {
         return (
           <div key={i} className="flex gap-2">
             <p className="flex w-full items-center">
-              {item.rom}/{item.ram} GB
+              {item.ROM}/{item.RAM} GB
             </p>
             <input
               type="number"
@@ -70,19 +70,16 @@ const PriceUpdateForm: React.FC<Props> = ({ mobile }) => {
           </div>
         );
       })}
-      {isLoading ? (
-        <LoadingSmall />
-      ) : (
-        <div className="mt-2 flex justify-center">
-          <button
-            type="button"
-            className="btn-primary btn "
-            onClick={submitHandler}
-          >
-            Update Price
-          </button>
-        </div>
-      )}
+
+      <div className="mt-2 flex justify-center">
+        <button
+          type="button"
+          className="btn-primary btn "
+          onClick={submitHandler}
+        >
+          Update Price
+        </button>
+      </div>
     </div>
   );
 };

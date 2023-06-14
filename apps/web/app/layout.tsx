@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     images:
       "https://firebasestorage.googleapis.com/v0/b/mobile-seller-e6165.appspot.com/o/logo.png?alt=media&token=e20206ed-013e-4fe7-a6e4-567de9d2838d",
   },
-  metadataBase: new URL(process.env.API_URL as string),
+  metadataBase: new URL(process.env["API_URL"] as string),
   colorScheme: "light",
 };
 

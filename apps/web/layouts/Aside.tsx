@@ -16,18 +16,18 @@ const Aside = () => {
         <Image
           className="rounded-full w-10 h-8"
           src={logo}
-          alt={process.env.LOGO as string}
+          alt={process.env["LOGO"] as string}
           width={100}
           height={60}
           priority
         />
-        <h3 className="text-lg  font-bold  ">{process.env.LOGO}</h3>
+        <h3 className="text-lg  font-bold  ">{process.env["LOGO"]}</h3>
       </div>
       <h2 className="my-2 font-semibold">MAIN MENU</h2>
       <nav className="flex  flex-1 flex-col ">
         <ul className="nav flex   flex-col gap-2">
           <AsideLink
-            href="/admin"
+            href="/dashboard"
             title="Dashboard"
             icon={<RxDashboard className="text-lg" />}
           />
@@ -36,8 +36,8 @@ const Aside = () => {
             title="Mobile"
             icon={<HiOutlineDevicePhoneMobile className="text-xl" />}
           >
-            <AsideLink href="admin/mobiles/all" title="All Model" />
-            <AsideLink href="admin/mobiles/add" title=" Add New " />
+            <AsideLink href="dashboard/mobiles/all" title="All Model" />
+            <AsideLink href="dashboard/mobiles/add" title=" Add New " />
           </AsideCollapse>
           <li
             className="flex cursor-pointer items-center gap-4 "

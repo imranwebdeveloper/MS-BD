@@ -1,4 +1,3 @@
-import { ReduxProviders } from "@/providers/ReduxProvider";
 import React from "react";
 import Image from "next/image";
 import Pagination from "@/components/common/Pagination";
@@ -12,7 +11,7 @@ export const metadata: Metadata = MetaData.Admin.Mobiles.All;
 
 const getData = async (pageNumber: string) => {
   const res = await fetch(
-    `${process.env.API_URL}/mobiles/latest?page=${pageNumber}` as string,
+    `${process.env["API_URL"]}/mobiles/latest?page=${pageNumber}` as string,
     {
       cache: "no-cache",
       headers,
@@ -54,7 +53,7 @@ const AllMobilesList = async ({
                   <td className=" p-2">
                     <div className="flex items-center gap-3  ">
                       <Image
-                        src={item.imgUrl}
+                        src={item.img_url}
                         alt={item.model}
                         className="h-16 w-12"
                         width={100}
@@ -62,15 +61,13 @@ const AllMobilesList = async ({
                         priority
                       />
                       <div>
-                        <p className="font-bold">{item.brandName}</p>
+                        <p className="font-bold">{item.brand}</p>
                         <p>{item.model}</p>
                       </div>
                     </div>
                   </td>
                   <td className="p-2">
-                    <ReduxProviders>
-                      <MobileAction id={item._id} />
-                    </ReduxProviders>
+                    <MobileAction id={item._id} />
                   </td>
                 </tr>
               );
@@ -83,7 +80,7 @@ const AllMobilesList = async ({
           currenPage={currenPage ? currenPage : 1}
           totalProduct={count}
           parPage={parPage}
-          path="admin/mobiles/all"
+          path="dashboard/mobiles/all"
         />
       )}
     </section>
@@ -91,10 +88,3 @@ const AllMobilesList = async ({
 };
 
 export default AllMobilesList;
-{
-  /* <ReduxProviders>
-  <div className="overflow-x-auto p-3">
-    <Latest page={searchParams.page} />
-  </div>
-</ReduxProviders>; */
-}
