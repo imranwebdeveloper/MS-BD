@@ -1,5 +1,5 @@
-import { Variant } from "@/types/Variant";
 import React from "react";
+import { PhoneVariants } from "types";
 
 interface Props {
   variants: any;
@@ -21,7 +21,7 @@ const MobilePriceTable: React.FC<Props> = ({ variants, date }) => {
           </tr>
         </thead>
         <tbody>
-          {variants.map((item: any, i: number) => {
+          {variants.map((item: PhoneVariants, i: number) => {
             return (
               <tr key={i}>
                 <td className="whitespace-nowrap border py-1 md:py-2 ">

@@ -5,17 +5,17 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId } from 'mongoose';
+import { Model } from 'mongoose';
 import { User, UserDocument } from '../schema/user';
 import { Comment, CommentDocument } from '../schema/comment';
-import { Mobile, MobileDocument } from '../schema/mobile';
+import { Phone, PhoneDocument } from '../schema/mobile';
 
 @Injectable()
 export class CommentService {
   constructor(
     @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-    @InjectModel(Mobile.name) private mobileModel: Model<MobileDocument>,
+    @InjectModel(Phone.name) private mobileModel: Model<PhoneDocument>,
   ) {}
 
   async createComment(comment: any) {

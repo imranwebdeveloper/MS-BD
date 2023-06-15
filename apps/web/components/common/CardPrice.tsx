@@ -1,7 +1,7 @@
-import { Variant } from "@/types/mobile";
 import React from "react";
+import { PhoneVariants } from "types";
 interface Props {
-  prices: Variant[];
+  prices: PhoneVariants[];
 }
 
 const CardPrice: React.FC<Props> = ({ prices }) => {

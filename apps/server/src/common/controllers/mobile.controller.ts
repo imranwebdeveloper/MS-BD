@@ -12,10 +12,9 @@ import {
 import { MobileDto } from '../dtos/create-mobile.dto';
 import { VariantUpdateDto } from '../dtos/mobile-variant.dto';
 import { MobileService } from '../providers/mobile.service';
-import { ResType } from '../interfaces/response-type';
-import { UpdateWriteOpResult } from '../interfaces/doc-write-result';
 import { Role } from '../constants/user-role.enum';
 import { Roles } from '../decorators/roles.decorator';
+import { ResType, UpdateWriteOpResult } from 'types';
 
 @Controller('mobiles')
 export class MobileController {
@@ -72,6 +71,7 @@ export class MobileController {
     @Query('limit') limit: string,
   ): Promise<ResType<any>> {
     const rangeArray = range.split('-').map((item) => Number(item));
+    console.log(rangeArray);
     const { count, mobiles, parPage } =
       await this.mobileService.getMobilesByPriceRange(page, limit, rangeArray);
     return {

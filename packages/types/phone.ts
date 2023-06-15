@@ -30,3 +30,13 @@ export enum PhoneStatus {
   AVAILABLE = "AVAILABLE",
   UNAPPROVED = "UNAPPROVED",
 }
+
+export interface PhoneShortInfo {
+  _id: string;
+  brand: string;
+  model: string;
+  variants: PhoneVariants[];
+  img_url: string;
+  updatedAt: string;
+  model_id: string;
+}

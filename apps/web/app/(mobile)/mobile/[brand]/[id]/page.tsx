@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React from "react";
 import { format } from "date-fns";
-import { Mobile, Phone } from "@/types/mobile";
 import { Metadata } from "next";
 import Disclaimer from "@/components/common/Disclaimer";
 import MobilePriceTable from "@/components/common/MobilePriceTable";
@@ -9,6 +8,7 @@ import { notFound } from "next/navigation";
 import { headers } from "@/lib/fetchHeader";
 import PhoneContent from "@/components/common/PhoneContent";
 import { capitalizeFirstWord } from "@/utils/toTitleCase";
+import { Phone } from "types";
 
 const getData = async (id: string) => {
   const res = await fetch(

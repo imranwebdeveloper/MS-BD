@@ -1,10 +1,10 @@
-import { MobileShortInfo } from "@/types/mobile";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import CardPrice from "./CardPrice";
+import { PhoneShortInfo } from "types";
 interface Props {
-  data: MobileShortInfo[];
+  data: PhoneShortInfo[];
 }
 
 const MobileCardContainer = ({ data }: Props) => {

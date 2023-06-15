@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AxiosService } from './axios.service';
 import { UtilsService } from './utils.service';
-import { Content, MobileContent, Phone, PhoneDocument } from '../schema/mobile';
+import { Phone, PhoneDocument } from '../schema/mobile';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreatePhoneDto } from '../dtos/phone.dto';

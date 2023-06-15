@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MobileController } from '../controllers/mobile.controller';
 import { MobileService } from '../providers/mobile.service';
-import { MobileSchema, Mobile, Phone, PhoneSchema } from '../schema/mobile';
+import { Phone, PhoneSchema } from '../schema/mobile';
 import { UtilsModule } from './utils.module';
 
 @Module({

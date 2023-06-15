@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Mobile, MobileDocument, Phone, PhoneDocument } from '../schema/mobile';
+import { Phone, PhoneDocument } from '../schema/mobile';
 import { MobileDto } from '../dtos/create-mobile.dto';
 import { VariantDto } from '../dtos/mobile-variant.dto';
 import { UtilsService } from './utils.service';
@@ -100,7 +100,7 @@ export class MobileService {
 
     try {
       let cursor: any = {
-        variant: {
+        variants: {
           $elemMatch: {
             $or: [
               { official: { $gte: gte, $lte: lte } },
@@ -112,7 +112,7 @@ export class MobileService {
 
       if (range.length === 1) {
         cursor = {
-          variant: {
+          variants: {
             $elemMatch: {
               $or: [{ official: { $gte: gte } }, { unofficial: { $gte: gte } }],
             },

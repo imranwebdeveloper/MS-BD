@@ -9,11 +9,9 @@ import {
 } from '@nestjs/common';
 import { UtilsService } from '../providers/utils.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ResType } from '../interfaces/response-type';
-import { CSVMobileFormat } from '../interfaces/CSV';
-import { mobileState } from '../schema/mobileModel';
 import { MobileDto } from '../dtos/create-mobile.dto';
 import { UploadService } from '../providers/upload.service';
+import { Phone, ResType } from 'types';
 
 @Controller('upload')
 export class UploadController {
@@ -45,7 +43,7 @@ export class UploadController {
   }
 
   @Post('scraping')
-  async saveNewMobileInfo(@Body() body: any) {
+  async saveNewMobileInfo(@Body() body: Phone) {
     console.log(body.title);
     const data = await this.uploadService.saveNewMobileInfo(body);
     return data;

@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Mobile } from './mobile';
 import { User } from './user';
 
 export type CommentDocument = HydratedDocument<Comment>;
@@ -11,7 +10,7 @@ export class Comment {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Mobile',
   })
-  model_id: Mobile;
+  model_id: string;
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
