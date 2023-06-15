@@ -5,10 +5,13 @@ import { MobileShortInfo } from "@/types/mobile";
 import { headers } from "@/lib/fetchHeader";
 
 const getData = async () => {
-  const res = await fetch(`${process.env.API_URL}/mobiles/latest` as string, {
-    headers: headers,
-    cache: "no-cache",
-  });
+  const res = await fetch(
+    `${process.env["API_URL"]}/mobiles/latest` as string,
+    {
+      headers: headers,
+      cache: "no-cache",
+    }
+  );
 
   if (!res.ok) throw new Error(await res.json().then((data) => data.message));
   return res.json();

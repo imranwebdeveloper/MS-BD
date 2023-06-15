@@ -1,6 +1,6 @@
 "use client";
 
-import { handleInput } from "@/redux/slices/mobileSlice";
+// import { handleInput } from "@/redux/slices/mobileSlice";
 import { useDispatch } from "react-redux";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 const Select: React.FC<Props> = ({ identity, title, options }) => {
   const dispatch = useDispatch();
   const inputHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(handleInput({ name: identity, value: e.target.value }));
+    // dispatch(handleInput({ name: identity, value: e.target.value }));
   };
   return (
     <div className="flex items-center">

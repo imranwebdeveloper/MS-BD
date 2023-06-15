@@ -37,7 +37,7 @@ const Footer = () => {
         <p className="text-center text-sm justify-center flex-wrap text-slate-500  flex gap-1 ">
           <span>{`© Copyright 2023-${new Date().getFullYear()} `}</span>
           <Link href="/" className="hover:text-link-text-light">
-            {process.env.LOGO}
+            {process.env["LOGO"]}
           </Link>
           {/* <span>| All Rights Reserved</span> */}
         </p>

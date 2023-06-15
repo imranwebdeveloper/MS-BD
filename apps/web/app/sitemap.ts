@@ -1,6 +1,6 @@
 import { getAllMobiles } from "@/utils/getAllMobiles";
 const sitemap = async () => {
-  const baseUrl = process.env.FULL_DOMAIN_URL as string;
+  const baseUrl = process.env["FULL_DOMAIN_URL"] as string;
   const data = await getAllMobiles();
   const brandNames = new Set();
   data.forEach((item) => brandNames.add(item.brand));

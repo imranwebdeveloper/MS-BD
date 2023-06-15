@@ -1,6 +1,5 @@
 "use client";
 
-import { addInput, removeInput } from "@/redux/slices/mobileSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -14,7 +13,7 @@ const ArrayInput: React.FC<InputLabelProps> = ({ label, name }) => {
   const dispatch = useDispatch();
 
   const handleInput = () => {
-    dispatch(addInput({ name, value }));
+    // dispatch(addInput({ name, value }));
     setValue("");
   };
   return (
@@ -35,7 +34,7 @@ const ArrayInput: React.FC<InputLabelProps> = ({ label, name }) => {
         </button>
         <button
           className=" btn-danger"
-          onClick={() => dispatch(removeInput(name))}
+          // onClick={() => dispatch(removeInput(name))}
         >
           Remove
         </button>

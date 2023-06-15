@@ -12,7 +12,7 @@ import { capitalizeFirstWord } from "@/utils/toTitleCase";
 
 const getData = async (id: string) => {
   const res = await fetch(
-    `${process.env.API_URL}/mobiles/model/${id}` as string,
+    `${process.env["API_URL"]}/mobiles/model/${id}` as string,
     { headers, cache: "no-cache" }
   );
   if (!res.ok) throw new Error(await res.json().then((data) => data.message));
@@ -27,21 +27,21 @@ export async function generateMetadata({
   const { data }: { data: Phone } = await getData(params.id);
 
   const metadata = {
-    title: `${data.brand} ${data.model} Specs, Price in Bangladesh | ${process.env.LOGO}`,
-    description: `Explore the ${data.brand} ${data.model} specifications, features, availability, and price in Bangladesh at ${process.env.LOGO}. Get detailed information about the ${data.brand} ${data.model} and make an informed purchase decision.`,
+    title: `${data.brand} ${data.model} Specs, Price in Bangladesh | ${process.env["LOGO"]}`,
+    description: `Explore the ${data.brand} ${data.model} specifications, features, availability, and price in Bangladesh at ${process.env["LOGO"]}. Get detailed information about the ${data.brand} ${data.model} and make an informed purchase decision.`,
     alternates: {
       canonical: `${
-        process.env.FULL_DOMAIN_URL
+        process.env["FULL_DOMAIN_URL"]
       }/mobile/${data.brand.toLowerCase()}/${params.id}`,
     },
 
     openGraph: {
       type: "website",
-      title: `${data.brand} ${data.model} Specs, Price in Bangladesh | ${process.env.LOGO}`,
-      description: `Explore the ${data.brand} ${data.model} specifications, features, availability, and price in Bangladesh at ${process.env.LOGO}. Get detailed information about the ${data.brand} ${data.model} and make an informed purchase decision.`,
-      url: `${process.env.FULL_DOMAIN_URL}/mobile/${data.brand.toLowerCase()}/${
-        params.id
-      }`,
+      title: `${data.brand} ${data.model} Specs, Price in Bangladesh | ${process.env["LOGO"]}`,
+      description: `Explore the ${data.brand} ${data.model} specifications, features, availability, and price in Bangladesh at ${process.env["LOGO"]}. Get detailed information about the ${data.brand} ${data.model} and make an informed purchase decision.`,
+      url: `${
+        process.env["FULL_DOMAIN_URL"]
+      }/mobile/${data.brand.toLowerCase()}/${params.id}`,
       images: [
         {
           url: data.img_url,
@@ -54,8 +54,8 @@ export async function generateMetadata({
 
     twitter: {
       card: "summary_large_image",
-      title: `${data.brand} ${data.model} Specs, Price in Bangladesh | ${process.env.LOGO}`,
-      description: `Explore the ${data.brand} ${data.model} specifications, features, availability, and price in Bangladesh at ${process.env.LOGO}. Get detailed information about the ${data.brand} ${data.model} and make an informed purchase decision.`,
+      title: `${data.brand} ${data.model} Specs, Price in Bangladesh | ${process.env["LOGO"]}`,
+      description: `Explore the ${data.brand} ${data.model} specifications, features, availability, and price in Bangladesh at ${process.env["LOGO"]}. Get detailed information about the ${data.brand} ${data.model} and make an informed purchase decision.`,
       images: data.img_url,
     },
   };

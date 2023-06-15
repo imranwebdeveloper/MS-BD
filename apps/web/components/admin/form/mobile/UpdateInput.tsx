@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FiEdit, FiSave } from "react-icons/fi";
 import LoadingSmall from "../../shared/LoadingSmall";
-import { useUpdateMobileContentMutation } from "@/redux/api/adminApiSlice";
+// import { useUpdateMobileContentMutation } from "@/redux/api/adminApiSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
@@ -20,7 +20,7 @@ const UpdateInput: React.FC<Props> = ({ info, title, fieldName, id, type }) => {
 
   const [toggle, setToggle] = useState<boolean>(false);
   const [data, setData] = useState<object>();
-  const [updateMobileContent, { isLoading }] = useUpdateMobileContentMutation();
+  // const [updateMobileContent, { isLoading }] = useUpdateMobileContentMutation();
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -29,7 +29,7 @@ const UpdateInput: React.FC<Props> = ({ info, title, fieldName, id, type }) => {
 
   const submitHandler = async () => {
     if (data) {
-      await updateMobileContent({ id, content: data });
+      // await updateMobileContent({ id, content: data });
       toast.success("Content updated");
       router.refresh();
     }
@@ -49,7 +49,7 @@ const UpdateInput: React.FC<Props> = ({ info, title, fieldName, id, type }) => {
       ) : (
         <p className="w-full p-2"> {info}</p>
       )}
-      {isLoading ? (
+      {/* {isLoading ? (
         <LoadingSmall />
       ) : (
         <button
@@ -58,7 +58,7 @@ const UpdateInput: React.FC<Props> = ({ info, title, fieldName, id, type }) => {
         >
           {toggle ? <FiSave onClick={submitHandler} /> : <FiEdit />}
         </button>
-      )}
+      )} */}
     </div>
   );
 };

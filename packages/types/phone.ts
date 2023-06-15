@@ -19,8 +19,14 @@ export interface Phone extends DocumentCommon {
   model_id: string;
   category: string;
   variants: PhoneVariants[];
-  status: string;
+  status: PhoneStatus;
   approved: boolean;
   img_url: string;
   content: PhoneContent;
+}
+
+export enum PhoneStatus {
+  UPCOMING = "UPCOMING",
+  AVAILABLE = "AVAILABLE",
+  UNAPPROVED = "UNAPPROVED",
 }

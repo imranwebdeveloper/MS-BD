@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { FiEdit, FiSave } from "react-icons/fi";
 import LoadingSmall from "../../shared/LoadingSmall";
-import { useUpdateMobileContentMutation } from "@/redux/api/adminApiSlice";
+// import { useUpdateMobileContentMutation } from "@/redux/api/adminApiSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
@@ -24,7 +24,7 @@ const UpdateArrayInput: React.FC<Props> = ({
   const router = useRouter();
   const [toggle, setToggle] = useState<boolean>(false);
   const [data, setData] = useState<object>();
-  const [updateMobileContent, { isLoading }] = useUpdateMobileContentMutation();
+  // const [updateMobileContent, { isLoading }] = useUpdateMobileContentMutation();
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
     const value = e.target.value;
     const index = parseInt(e.target.name.split("-")[1]);
@@ -34,7 +34,7 @@ const UpdateArrayInput: React.FC<Props> = ({
   };
 
   const submitHandler = async () => {
-    await updateMobileContent({ id, content: data });
+    // await updateMobileContent({ id, content: data });
     toast.success("Content updated");
     router.refresh();
   };
@@ -68,7 +68,7 @@ const UpdateArrayInput: React.FC<Props> = ({
           })}
         </div>
       )}
-      {isLoading ? (
+      {/* {isLoading ? (
         <LoadingSmall />
       ) : (
         <button
@@ -77,7 +77,7 @@ const UpdateArrayInput: React.FC<Props> = ({
         >
           {toggle ? <FiSave onClick={submitHandler} /> : <FiEdit />}
         </button>
-      )}
+      )} */}
     </div>
   );
 };

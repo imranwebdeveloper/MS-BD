@@ -1,7 +1,7 @@
 "use client";
 
-import { handleInput } from "@/redux/slices/mobileSlice";
-import { useDispatch } from "react-redux";
+// import { handleInput } from "@/redux/slices/mobileSlice";
+// import { useDispatch } from "react-redux";
 
 interface InputProps {
   label: string;
@@ -11,11 +11,11 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({ label, name, type, value }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    dispatch(handleInput({ name, value }));
+    // dispatch(handleInput({ name, value }));
   };
 
   return (

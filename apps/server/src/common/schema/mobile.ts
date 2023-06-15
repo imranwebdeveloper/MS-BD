@@ -2,6 +2,12 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { Document } from 'mongoose';
 
+export enum Status {
+  UPCOMING = 'UPCOMING',
+  AVAILABLE = 'AVAILABLE',
+  UNAPPROVED = 'UNAPPROVED',
+}
+
 export type MobileDocument = HydratedDocument<Mobile>;
 
 @Schema({ timestamps: true })
@@ -149,8 +155,8 @@ export class Phone {
     unofficial: number;
   }[];
 
-  @Prop({ required: true })
-  status: string;
+  @Prop({ required: true, enum: Status })
+  status: Status.UNAPPROVED;
 
   @Prop({ required: true })
   approved: boolean;

@@ -1,6 +1,6 @@
 "use client";
 
-import { addInput, removeInput } from "@/redux/slices/mobileSlice";
+// import { addInput, removeInput } from "@/redux/slices/mobileSlice";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -34,22 +34,22 @@ const VariantInput: React.FC<{ name: string }> = ({ name }) => {
       <div className="flex items-center justify-between gap-2 text-sm font-bold">
         <button
           className=" btn-green "
-          onClick={() => {
-            dispatch(
-              addInput({
-                name,
-                value: { rom, ram, official: 0, unofficial: 0 },
-              })
-            );
-            setRom(0);
-            setRam(0);
-          }}
+          // onClick={() => {
+          //   dispatch(
+          //     addInput({
+          //       name,
+          //       value: { rom, ram, official: 0, unofficial: 0 },
+          //     })
+          //   );
+          //   setRom(0);
+          //   setRam(0);
+          // }}
         >
           Add
         </button>
         <button
           className=" btn-danger "
-          onClick={() => dispatch(removeInput(name))}
+          // onClick={() => dispatch(removeInput(name))}
         >
           Remove
         </button>

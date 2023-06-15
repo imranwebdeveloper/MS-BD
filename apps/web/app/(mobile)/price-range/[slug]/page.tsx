@@ -8,8 +8,8 @@ import { Metadata } from "next";
 const getData = async (slug: string, pageNumber?: string) => {
   let url: string;
   url = pageNumber
-    ? (`${process.env.API_URL}/mobiles/price/${slug}?page=${pageNumber}` as string)
-    : (`${process.env.API_URL}/mobiles/price/${slug}` as string);
+    ? (`${process.env["API_URL"]}/mobiles/price/${slug}?page=${pageNumber}` as string)
+    : (`${process.env["API_URL"]}/mobiles/price/${slug}` as string);
   const res = await fetch(url, { headers, cache: "no-cache" });
   if (!res.ok) throw new Error(await res.json().then((data) => data.message));
   return res.json();
@@ -23,24 +23,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const prices = params.slug.split("-");
   const metadata = {
-    title: `Mobile Phone Prices in Bangladesh: ${params.slug} Tk | ${process.env.LOGO}`,
+    title: `Mobile Phone Prices in Bangladesh: ${params.slug} Tk | ${process.env["LOGO"]}`,
     description: `Discover a wide range of mobile phones priced between ${
       prices[0]
     } ${prices[1] ? `and ${prices[1]}` : ""} Tk in Bangladesh at ${
-      process.env.LOGO
+      process.env["LOGO"]
     }. Browse through our collection of high-quality smartphones from top brands, compare prices, and make an informed purchase decision.`,
     alternates: {
-      canonical: `${process.env.FULL_DOMAIN_URL}/price-range/${params.slug}`,
+      canonical: `${process.env["FULL_DOMAIN_URL"]}/price-range/${params.slug}`,
     },
     openGraph: {
       type: "website",
-      title: `Mobile Phone Prices in Bangladesh: ${params.slug} Tk | ${process.env.LOGO}`,
+      title: `Mobile Phone Prices in Bangladesh: ${params.slug} Tk | ${process.env["LOGO"]}`,
       description: `Discover a wide range of mobile phones priced between ${
         prices[0]
       } ${prices[1] ? `and ${prices[1]}` : ""} Tk in Bangladesh at ${
-        process.env.LOGO
+        process.env["LOGO"]
       }. Browse through our collection of high-quality smartphones from top brands, compare prices, and make an informed purchase decision.`,
-      url: `${process.env.FULL_DOMAIN_URL}/price-range/${params.slug}`,
+      url: `${process.env["FULL_DOMAIN_URL"]}/price-range/${params.slug}`,
       images: [
         {
           url: "https://firebasestorage.googleapis.com/v0/b/mobile-seller-e6165.appspot.com/o/logo.png?alt=media&token=e20206ed-013e-4fe7-a6e4-567de9d2838d",
@@ -53,12 +53,12 @@ export async function generateMetadata({
 
     twitter: {
       card: "summary_large_image",
-      title: `Mobile Phone Prices in Bangladesh: ${params.slug} Tk | ${process.env.LOGO}`,
+      title: `Mobile Phone Prices in Bangladesh: ${params.slug} Tk | ${process.env["LOGO"]}`,
 
       description: `Discover a wide range of mobile phones priced between ${
         prices[0]
       } ${prices[1] ? `and ${prices[1]}` : ""} Tk in Bangladesh at ${
-        process.env.LOGO
+        process.env["LOGO"]
       }. Browse through our collection of high-quality smartphones from top brands, compare prices, and make an informed purchase decision.`,
       images:
         "https://firebasestorage.googleapis.com/v0/b/mobile-seller-e6165.appspot.com/o/logo.png?alt=media&token=e20206ed-013e-4fe7-a6e4-567de9d2838d",

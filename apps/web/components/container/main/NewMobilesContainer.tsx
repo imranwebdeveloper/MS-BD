@@ -2,7 +2,7 @@ import MobileCardContainer from "@/components/common/MobileCardContainer";
 import React from "react";
 
 const getData = async (path: string) => {
-  const res = await fetch(`${process.env.API_URL}/${path}` as string, {
+  const res = await fetch(`${process.env["API_URL"]}/${path}` as string, {
     cache: "no-cache",
   });
   return res.json();
