@@ -1,10 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "build": " dotenv -- turbo run build",
+    "build": "dotenv -- turbo run build",
     "dev": " dotenv -- turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "server:build": "dotenv -- turbo run build --filter server",
+    "web:build": "dotenv -- turbo run build --filter web",
+    "start": "node apps/server/dist/main"
   },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",
