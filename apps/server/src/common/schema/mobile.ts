@@ -3,9 +3,9 @@ import { HydratedDocument } from 'mongoose';
 import { Document } from 'mongoose';
 
 export enum Status {
+  UNAPPROVED = 'UNAPPROVED',
   UPCOMING = 'UPCOMING',
   AVAILABLE = 'AVAILABLE',
-  UNAPPROVED = 'UNAPPROVED',
 }
 
 export type PhoneDocument = Phone & Document;

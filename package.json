@@ -7,7 +7,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "server:build": "dotenv -- turbo run build --filter server",
     "web:build": "dotenv -- turbo run build --filter web",
-    "start": "node apps/server/dist/main"
+    "start:sever": "node apps/server/dist/main",
+    "start": "yarn --cwd apps/web start"
   },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",

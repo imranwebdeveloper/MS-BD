@@ -18,7 +18,7 @@ const Dashboard = async ({ children }: MobileLayoutProps) => {
 
   return (
     <div className="grid h-screen md:grid-cols-[280px_1fr]">
-      <Token user={data?.user} />
+      {/* <Token user={data?.user} /> */}
       <Aside />
       <section className="relative h-screen overflow-scroll  px-4 scrollbar-hide ">
         <DashboardHeader />

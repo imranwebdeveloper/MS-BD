@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Phone, PhoneDocument } from '../schema/mobile';
+import { Phone, PhoneDocument, Status } from '../schema/mobile';
 import { MobileDto } from '../dtos/create-mobile.dto';
 import { VariantDto } from '../dtos/mobile-variant.dto';
 import { UtilsService } from './utils.service';
@@ -43,7 +43,7 @@ export class MobileService {
     const skip = limit * (currentPage - 1);
     const count = await this.mobileModel.count();
     const latestMobiles = await this.mobileModel
-      .find({})
+      .find({ status: Status.AVAILABLE })
       .limit(limit)
       .skip(skip)
       .sort({ releasedDate: 'desc' })
@@ -56,6 +56,35 @@ export class MobileService {
         'model_id',
       ]);
     return { parPage: limit, count, latestMobiles };
+  }
+  async getUnapprovedMobiles(pageNumber?: number, perPage?: number) {
+    const currentPage = Number(pageNumber) || 1;
+    const limit = Number(perPage) || 12;
+    const skip = limit * (currentPage - 1);
+    const count = await this.mobileModel.count();
+    const latestMobiles = await this.mobileModel
+      .find({ status: Status.UNAPPROVED })
+      .limit(limit)
+      .skip(skip)
+      .sort({ releasedDate: 'desc' })
+      .select([
+        'brand',
+        'model',
+        'img_url',
+        'variants',
+        'updatedAt',
+        'model_id',
+        'status',
+      ]);
+    return { parPage: limit, count, latestMobiles };
+  }
+
+  async approveMobiles(id: string) {
+    const updatedOptions = await this.mobileModel.updateOne(
+      { _id: id },
+      { $set: { status: Status.UPCOMING } },
+    );
+    return updatedOptions;
   }
 
   async getMobilesByCategory(
@@ -222,7 +251,7 @@ export class MobileService {
       const id = this.utilsService.verifyId(_id);
       const updatedOptions = await this.mobileModel.updateOne(
         { _id: id },
-        { $set: { variants: newPrice } },
+        { $set: { variants: newPrice, status: Status.AVAILABLE } },
       );
       if (!updatedOptions) throw new NotFoundException('Document not found');
       return updatedOptions as T;

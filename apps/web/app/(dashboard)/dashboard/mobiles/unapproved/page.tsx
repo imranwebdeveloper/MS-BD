@@ -1,17 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import Pagination from "@/components/common/Pagination";
-import MobileAction from "./MobileAction";
 import { headers } from "@/lib/fetchHeader";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { MetaData } from "@/lib/metaData";
+import Link from "next/link";
+import { PhoneShortInfo } from "types";
 
 export const metadata: Metadata = MetaData.Admin.Mobiles.All;
 
 const getData = async (pageNumber: string) => {
   const res = await fetch(
-    `${process.env["API_URL"]}/mobiles/latest?page=${pageNumber}` as string,
+    `${process.env["API_URL"]}/mobiles/unapproved?page=${pageNumber}` as string,
     {
       cache: "no-cache",
       headers,
@@ -47,7 +48,7 @@ const AllMobilesList = async ({
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 ">
-            {mobiles.map((item: any) => {
+            {mobiles.map((item: PhoneShortInfo) => {
               return (
                 <tr key={item._id} className="border-b border-gray-100">
                   <td className=" p-2">
@@ -67,7 +68,11 @@ const AllMobilesList = async ({
                     </div>
                   </td>
                   <td className="p-2">
-                    <MobileAction id={item._id} />
+                    <Link
+                      href={`/dashboard/mobiles/unapproved/${item.model_id}`}
+                    >
+                      Check Details
+                    </Link>
                   </td>
                 </tr>
               );
@@ -80,7 +85,7 @@ const AllMobilesList = async ({
           currenPage={currenPage ? currenPage : 1}
           totalProduct={count}
           parPage={parPage}
-          path="/dashboard/mobiles/all"
+          path="/dashboard/mobiles/unapproved"
         />
       )}
     </section>

@@ -38,6 +38,27 @@ export class MobileController {
       data: { count, mobiles: latestMobiles, parPage },
     };
   }
+  @Get('unapproved')
+  async getUnapprovedMobiles(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+  ): Promise<ResType<any>> {
+    const { count, latestMobiles, parPage } =
+      await this.mobileService.getUnapprovedMobiles(page, limit);
+    return {
+      message: 'success',
+      data: { count, mobiles: latestMobiles, parPage },
+    };
+  }
+  @Put('approve/:id')
+  async approvedMobiles(@Param('id') id: string): Promise<ResType<any>> {
+    const data = await this.mobileService.approveMobiles(id);
+    return {
+      message: 'success',
+      data: data,
+    };
+  }
+
   @Get('brand/:name')
   async getMobilesByBrandsName(
     @Param('name') name: string,

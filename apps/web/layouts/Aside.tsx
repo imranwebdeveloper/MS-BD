@@ -36,8 +36,13 @@ const Aside = () => {
             title="Mobile"
             icon={<HiOutlineDevicePhoneMobile className="text-xl" />}
           >
-            <AsideLink href="dashboard/mobiles/all" title="All Model" />
-            <AsideLink href="dashboard/mobiles/add" title=" Add New " />
+            <AsideLink
+              href="/dashboard/mobiles/unapproved"
+              title="Unapproved"
+            />
+            <AsideLink href="/dashboard/mobiles/upcoming" title="Upcoming" />
+            <AsideLink href="/dashboard/mobiles/add" title="Available" />
+            <AsideLink href="/dashboard/mobiles/add" title="Add New" />
           </AsideCollapse>
           <li
             className="flex cursor-pointer items-center gap-4 "

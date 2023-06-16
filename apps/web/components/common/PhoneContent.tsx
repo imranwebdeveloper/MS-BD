@@ -1,5 +1,4 @@
 import React from "react";
-import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 
 interface Props {
   content: any;
@@ -40,7 +39,6 @@ const PhoneContent: React.FC<Props> = ({ content, title }) => {
                   ),
                 }}
               ></p>
-              {/* )} */}
             </li>
           );
         })}
