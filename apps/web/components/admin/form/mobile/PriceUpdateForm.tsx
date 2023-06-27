@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { PhoneVariants, Phone } from "types";
 
@@ -48,7 +47,7 @@ const PriceUpdateForm: React.FC<Props> = ({ mobile }) => {
   };
 
   return (
-    <div className="col-span-2 flex flex-col gap-2 rounded border bg-primary-bg-light p-8">
+    <div className="col-span-2 flex flex-col gap-2 rounded border bg-white p-8">
       <div className="mb-2 grid grid-cols-3 bg-slate-50 py-2 font-bold   ">
         <p>Variant</p>
         <p>Official Price</p> <p>Unofficial Price</p>

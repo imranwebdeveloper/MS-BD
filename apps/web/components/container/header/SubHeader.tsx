@@ -24,7 +24,7 @@ const SubHeader: React.FC<Props> = ({ slug }) => {
   ];
 
   return (
-    <ul className="flex md:justify-around whitespace-nowrap divide-x rounded bg-primary-bg-light  overflow-x-scroll scrollbar-hide ">
+    <ul className="flex md:justify-around whitespace-nowrap divide-x rounded bg-white  overflow-x-scroll scrollbar-hide ">
       {brands.map((item: string, index: number) => {
         return (
           <li

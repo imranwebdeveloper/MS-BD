@@ -5,7 +5,7 @@ export const metadata = MetaData.About;
 const About = () => {
   return (
     <section className="layout container">
-      <article className="bg-primary-bg-light rounded-md border my-4 p-4  md:p-20 flex flex-col gap-4 max-w-3xl mx-auto leading-5">
+      <article className="bg-white rounded-md border my-4 p-4  md:p-20 flex flex-col gap-4 max-w-3xl mx-auto leading-5">
         <header className="text-center">
           <h1 className="text-primary-text-light">About Us</h1>
         </header>

@@ -15,7 +15,7 @@ const Accordion: React.FC<AccordionProps> = ({ heading, children, fn, bg }) => {
   return (
     <div
       className={`mb-1 rounded-md border ${
-        bg ? "bg-[#F1F5F9]" : "bg-primary-bg-light"
+        bg ? "bg-[#F1F5F9]" : "bg-white"
       }  p-4 text-sm text-slate-800`}
     >
       <div

@@ -31,6 +31,8 @@ export enum PhoneStatus {
   UNAPPROVED = "UNAPPROVED",
 }
 
+export type PhoneStatusType = "UPCOMING" | "AVAILABLE" | "UNAPPROVED";
+
 export interface PhoneShortInfo {
   _id: string;
   brand: string;
@@ -39,4 +41,12 @@ export interface PhoneShortInfo {
   img_url: string;
   updatedAt: string;
   model_id: string;
+  status: string;
+  title: string;
+}
+
+export interface PhoneShortRes {
+  count: number;
+  perPage: number;
+  mobiles: PhoneShortInfo[];
 }

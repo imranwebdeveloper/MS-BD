@@ -44,7 +44,7 @@ const PriceRange: React.FC<Props> = ({ slug }) => {
               className={`px-2 md:px-4 py-1 border rounded-full  ${
                 slug === item.link
                   ? " bg-primary-bg-dark text-primary-text-dark"
-                  : "bg-primary-bg-light"
+                  : "bg-white"
               } `}
             >
               <Link href={`/price-range/${item.link}`}>Tk {item.title}</Link>

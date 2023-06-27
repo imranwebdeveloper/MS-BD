@@ -17,7 +17,7 @@ const MobileCardContainer = ({ data }: Props) => {
             key={item._id}
             href={`mobile/${item.brand.toLowerCase()}/${item.model_id}`}
           >
-            <article className="transition cursor-pointer hover:scale-105  flex flex-col border rounded-md bg-primary-bg-light p-4">
+            <article className="transition cursor-pointer hover:scale-105  flex flex-col border rounded-md bg-white p-4">
               <header>
                 <Image
                   src={item.img_url}

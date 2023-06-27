@@ -22,14 +22,14 @@ const Pagination: React.FC<Props> = ({
   const pagination = numOfPages.slice(shortPagination, shortPagination + 4);
   return (
     <nav className="flex justify-center my-4 text-sm md:text-base">
-      <ul className="gap-3 flex bg-primary-bg-light border px-4  py-3 items-center  rounded-md">
+      <ul className="gap-3 flex bg-white border px-4  py-3 items-center  rounded-md">
         {currenPage >= 2 && (
           <li>
             <Link
               href={`${
                 currenPage <= 1
-                  ? `${path}?page=${1}`
-                  : `${path}?page=${currenPage - 1}`
+                  ? `${path}page=${1}`
+                  : `${path}page=${currenPage - 1}`
               }`}
               className=" text-origin-600 font-bold px-2"
             >

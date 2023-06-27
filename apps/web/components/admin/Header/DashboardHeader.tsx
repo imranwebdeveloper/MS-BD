@@ -6,7 +6,7 @@ import SearchBox from "./SearchBox";
 
 const DashboardHeader = () => {
   return (
-    <header className="my-2 flex  items-center rounded-md bg-primary-bg-light p-4 shadow  ">
+    <header className="my-2 flex  items-center rounded-md bg-white p-4 shadow  ">
       <div className="flex flex-1 items-center gap-2">
         <SearchBox />
       </div>

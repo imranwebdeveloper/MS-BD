@@ -11,7 +11,7 @@ import logo from "../app/android-chrome-192x192.png";
 
 const Aside = () => {
   return (
-    <div className="flex flex-col bg-primary-bg-light p-4">
+    <div className="flex flex-col bg-white p-4">
       <div className="mb-4 flex gap-2 items-center">
         <Image
           className="rounded-full w-10 h-8"

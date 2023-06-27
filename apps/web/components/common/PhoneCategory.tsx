@@ -33,7 +33,7 @@ const PhoneCategory: React.FC<Props> = ({ slug }) => {
               className={`px-2 md:px-4 py-1 border rounded-full  ${
                 slug === item.link
                   ? "bg-primary-bg-dark text-primary-bg-light"
-                  : "bg-primary-bg-light"
+                  : "bg-white"
               }`}
             >
               <Link href={`/category/${item.link}`}>{item.title}</Link>

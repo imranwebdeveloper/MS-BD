@@ -74,7 +74,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-slate-100 text-sm md:text-base text-primary-text-light;
+    @apply bg-slate-100 text-sm md:text-base;
   }
   h1 {
     @apply text-lg md:text-xl font-bold text-[#354253];
@@ -95,25 +95,17 @@
     @apply max-w-5xl mx-auto;
   }
   .header {
-    @apply bg-primary-bg-light dark:bg-primary-bg-dark border-b border-b-primary-border-light dark:border-b-primary-border-dark py-2;
+    @apply bg-white  border-b border-b  py-2;
   }
   .main {
     @apply py-2;
   }
   .footer {
-    @apply bg-primary-bg-light border-t-primary-border-light dark:border-t-primary-border-dark dark:dark:bg-primary-bg-dark border-t py-2;
+    @apply bg-white border-t  py-2;
   }
-  .btn-login {
-    @apply bg-primary-bg-dark text-primary-bg-light  rounded-md px-4 py-1  shadow-md;
-  }
-  .btn-primary {
-    @apply bg-primary-bg-dark text-primary-bg-light  rounded-md px-6 py-2  shadow-md;
-  }
-  .btn-green {
-    @apply bg-green text-primary-bg-light  rounded-md px-6 py-2  shadow-md;
-  }
-  .btn-danger {
-    @apply bg-waring text-primary-bg-light  rounded-md px-6 py-2  shadow-md;
+
+  .dashboard_link {
+    @apply relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent pr-6;
   }
 }
 

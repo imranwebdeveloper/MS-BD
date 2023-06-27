@@ -5,7 +5,6 @@ import { FiEdit, FiSave } from "react-icons/fi";
 import LoadingSmall from "../../shared/LoadingSmall";
 // import { useUpdateMobileContentMutation } from "@/redux/api/adminApiSlice";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
 
 interface Props {
   id?: string;
@@ -30,7 +29,6 @@ const UpdateInput: React.FC<Props> = ({ info, title, fieldName, id, type }) => {
   const submitHandler = async () => {
     if (data) {
       // await updateMobileContent({ id, content: data });
-      toast.success("Content updated");
       router.refresh();
     }
   };

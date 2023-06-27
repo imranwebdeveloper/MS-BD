@@ -11,7 +11,7 @@ interface Props {
 const ContentUpdateFrom: React.FC<Props> = ({ mobile }) => {
   return (
     <div></div>
-    // <section className="col-span-3 rounded border bg-primary-bg-light p-8">
+    // <section className="col-span-3 rounded border bg-white p-8">
     //   <UpdateInput
     //     info={mobile?.brandName}
     //     fieldName="brandName"

@@ -74,7 +74,7 @@ const ModelDetails = async ({ params }: { params: { id: string } }) => {
     <section className="main">
       <section className="layout container py-4">
         <article className="mx-auto  grid grid-cols-1 text-sm md:grid-cols-3 gap-2 max-w-3xl ">
-          <div className="border bg-primary-bg-light rounded-md flex flex-col gap-2 p-6">
+          <div className="border bg-white rounded-md flex flex-col gap-2 p-6">
             <Image
               alt={`${data.brand} ${data.model} mobile`}
               src={data.img_url}
@@ -88,7 +88,7 @@ const ModelDetails = async ({ params }: { params: { id: string } }) => {
               <p>{data.model}</p>
             </div>
           </div>
-          <div className="md:col-span-2 border rounded-md bg-primary-bg-light p-2 md:px-8   ">
+          <div className="md:col-span-2 border rounded-md bg-white p-2 md:px-8   ">
             <h1 className="my-2">
               {data.brand} {data.model} Price in Bangladesh
             </h1>

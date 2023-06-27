@@ -4,7 +4,6 @@ import { FiEdit, FiSave } from "react-icons/fi";
 import LoadingSmall from "../../shared/LoadingSmall";
 // import { useUpdateMobileContentMutation } from "@/redux/api/adminApiSlice";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
 
 interface Props {
   id?: string;
@@ -35,7 +34,7 @@ const UpdateArrayInput: React.FC<Props> = ({
 
   const submitHandler = async () => {
     // await updateMobileContent({ id, content: data });
-    toast.success("Content updated");
+    // toast.success("Content updated");
     router.refresh();
   };
 

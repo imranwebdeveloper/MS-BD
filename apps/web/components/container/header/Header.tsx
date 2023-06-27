@@ -82,7 +82,7 @@ const Header = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden p-6 text-left align-middle shadow-xl transition-all">
-                  <div className="fixed w-full flex bg-primary-bg-light z-10 top-0 left-0 items-center p-2 ">
+                  <div className="fixed w-full flex bg-white z-10 top-0 left-0 items-center p-2 ">
                     <input
                       type="text"
                       className="focus:outline-none w-full py-2 bg-slate-100 rounded-3xl px-2 "

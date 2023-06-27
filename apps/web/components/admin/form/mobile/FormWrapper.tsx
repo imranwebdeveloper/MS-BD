@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 // import { RootState } from "@/redux/store";
 import LoadingSmall from "../../shared/LoadingSmall";
 // import { useAddNewMobileMutation } from "@/redux/api/adminApiSlice";
-import { toast } from "react-hot-toast";
 import { headers } from "@/lib/fetchHeader";
 // import { setMobile } from "@/redux/slices/mobileSlice";
 
@@ -51,14 +50,14 @@ const FormWrapper = () => {
         });
         const { data } = await res.json();
         // await addNewMobile({ ...newMobile, imgUrl: data.img_url });
-        toast.success("New Mobile added successfully");
+        // toast.success("New Mobile added successfully");
         setLoading(false);
       } else {
-        toast.error("Mobile image required");
+        // toast.error("Mobile image required");
       }
     } catch (error: any) {
       setLoading(false);
-      toast.error(error.data?.message?.[0]);
+      // toast.error(error.data?.message?.[0]);
     }
   };
 
@@ -66,7 +65,7 @@ const FormWrapper = () => {
     <div></div>
     //     <>
     //       <div
-    //         className={`flex items-center justify-between bg-primary-bg-light p-4 rounded-md gap-4 mb-4`}
+    //         className={`flex items-center justify-between bg-white p-4 rounded-md gap-4 mb-4`}
     //       >
     //         <div className="flex items-center">
     //           <label className="min-w-[100px]">Upload CSV File</label>

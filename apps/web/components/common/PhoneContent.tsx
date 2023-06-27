@@ -9,7 +9,7 @@ const PhoneContent: React.FC<Props> = ({ content, title }) => {
   const phoneInfo = Object.entries(content);
 
   return (
-    <div className=" rounded-md bg-primary-bg-light mt-1 border text-xs md:text-sm tracking-tight  ">
+    <div className=" rounded-md bg-white mt-1 border text-xs md:text-sm tracking-tight  ">
       <p className="rounded-t-md p-2 md:py-2 md:px-6 text-sm md:text-base font-bold mb-1 bg-origin-50 text-origin-600">
         {title}
       </p>
@@ -23,10 +23,10 @@ const PhoneContent: React.FC<Props> = ({ content, title }) => {
                 {item[0]}
               </p>
               {/* {yes && (
-                <BsCheckCircleFill className="text-xl bg-primary-bg-light text-[#8AC63C] mt-1 " />
+                <BsCheckCircleFill className="text-xl bg-white text-[#8AC63C] mt-1 " />
               )}
               {no && (
-                <BsXCircleFill className="text-xl  text-[#CA321C] bg-primary-bg-light mt+1 " />
+                <BsXCircleFill className="text-xl  text-[#CA321C] bg-white mt+1 " />
               )} */}
 
               {/* {!yes && !no && ( */}

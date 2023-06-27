@@ -9,6 +9,7 @@ import { Phone, PhoneDocument, Status } from '../schema/mobile';
 import { MobileDto } from '../dtos/create-mobile.dto';
 import { VariantDto } from '../dtos/mobile-variant.dto';
 import { UtilsService } from './utils.service';
+import { PaginationQuery } from 'types';
 
 @Injectable()
 export class MobileService {
@@ -37,13 +38,14 @@ export class MobileService {
     }
   }
 
-  async getLatestMobiles(pageNumber?: number, perPage?: number) {
-    const currentPage = Number(pageNumber) || 1;
-    const limit = Number(perPage) || 12;
+  async getMobilesByStatus(query: PaginationQuery<string>) {
+    const currentPage = Number(query.page) || 1;
+    const limit = Number(query.limit) || 12;
     const skip = limit * (currentPage - 1);
     const count = await this.mobileModel.count();
+
     const latestMobiles = await this.mobileModel
-      .find({ status: Status.AVAILABLE })
+      .find({ status: query.data })
       .limit(limit)
       .skip(skip)
       .sort({ releasedDate: 'desc' })
@@ -54,10 +56,34 @@ export class MobileService {
         'variants',
         'updatedAt',
         'model_id',
+        'status',
       ]);
-    return { parPage: limit, count, latestMobiles };
+    return { perPage: limit, count, mobiles: latestMobiles };
   }
-  async getUnapprovedMobiles(pageNumber?: number, perPage?: number) {
+
+  async getLatestMobiles(pageNumber?: number, perPage?: number) {
+    const currentPage = Number(pageNumber) || 1;
+    const limit = Number(perPage) || 12;
+    const skip = limit * (currentPage - 1);
+    const count = await this.mobileModel.count();
+    const latestMobiles = await this.mobileModel
+      .find({})
+      .limit(limit)
+      .skip(skip)
+      .sort({ releasedDate: 'desc' })
+      .select([
+        'brand',
+        'model',
+        'img_url',
+        'variants',
+        'updatedAt',
+        'model_id',
+        'status',
+        'title',
+      ]);
+    return { perPage: limit, count, latestMobiles };
+  }
+  async getAllMobiles(pageNumber?: number, perPage?: number) {
     const currentPage = Number(pageNumber) || 1;
     const limit = Number(perPage) || 12;
     const skip = limit * (currentPage - 1);
@@ -76,7 +102,7 @@ export class MobileService {
         'model_id',
         'status',
       ]);
-    return { parPage: limit, count, latestMobiles };
+    return { perPage: limit, count, latestMobiles };
   }
 
   async approveMobiles(id: string) {
@@ -114,7 +140,7 @@ export class MobileService {
           'updatedAt',
           'model_id',
         ]);
-      return { parPage: limit, count, mobiles: brands };
+      return { perPage: limit, count, mobiles: brands };
     } catch (error) {
       throw new BadRequestException(error);
     }
@@ -166,7 +192,7 @@ export class MobileService {
           'updatedAt',
           'model_id',
         ]);
-      return { parPage: limit, count, mobiles: brands };
+      return { perPage: limit, count, mobiles: brands };
     } catch (error) {
       throw new BadRequestException(error);
     }
@@ -226,7 +252,7 @@ export class MobileService {
           'updatedAt',
           'model_id',
         ]);
-      return { parPage: limit, count, mobiles: brands };
+      return { perPage: limit, count, mobiles: brands };
     } catch (error) {
       throw new BadRequestException(error);
     }

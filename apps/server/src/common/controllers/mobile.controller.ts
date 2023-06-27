@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   Req,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { MobileDto } from '../dtos/create-mobile.dto';
 import { VariantUpdateDto } from '../dtos/mobile-variant.dto';
@@ -15,6 +16,7 @@ import { MobileService } from '../providers/mobile.service';
 import { Role } from '../constants/user-role.enum';
 import { Roles } from '../decorators/roles.decorator';
 import { ResType, UpdateWriteOpResult } from 'types';
+import { UpperCase } from '../pipes/UpperCase.pipe';
 
 @Controller('mobiles')
 export class MobileController {
@@ -26,30 +28,51 @@ export class MobileController {
     return { message: 'success', data };
   }
 
+  @Get('status')
+  async getMobilesByStatus(
+    @Query('filter', UpperCase) status: string,
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+  ) {
+    console.log(status);
+    const { count, mobiles, perPage } =
+      await this.mobileService.getMobilesByStatus({
+        data: status,
+        page,
+        limit,
+      });
+    return {
+      message: 'success',
+      data: { count, mobiles, perPage },
+    };
+  }
+
   @Get('latest')
   async getLatestMobiles(
     @Query('page') page: number,
     @Query('limit') limit: number,
   ): Promise<ResType<any>> {
-    const { count, latestMobiles, parPage } =
+    const { count, latestMobiles, perPage } =
       await this.mobileService.getLatestMobiles(page, limit);
     return {
       message: 'success',
-      data: { count, mobiles: latestMobiles, parPage },
+      data: { count, mobiles: latestMobiles, perPage },
     };
   }
-  @Get('unapproved')
+  @Get('all')
   async getUnapprovedMobiles(
     @Query('page') page: number,
     @Query('limit') limit: number,
+    @Query('filter') filter: string,
   ): Promise<ResType<any>> {
-    const { count, latestMobiles, parPage } =
-      await this.mobileService.getUnapprovedMobiles(page, limit);
+    const { count, latestMobiles, perPage } =
+      await this.mobileService.getAllMobiles(page, limit);
     return {
       message: 'success',
-      data: { count, mobiles: latestMobiles, parPage },
+      data: { count, mobiles: latestMobiles, perPage },
     };
   }
+
   @Put('approve/:id')
   async approvedMobiles(@Param('id') id: string): Promise<ResType<any>> {
     const data = await this.mobileService.approveMobiles(id);
@@ -78,11 +101,11 @@ export class MobileController {
     @Query('page') page: string,
     @Query('limit') limit: string,
   ): Promise<ResType<any>> {
-    const { count, mobiles, parPage } =
+    const { count, mobiles, perPage } =
       await this.mobileService.getMobilesByCategory(slug, page, limit);
     return {
       message: 'success',
-      data: { count, mobiles: mobiles, parPage },
+      data: { count, mobiles: mobiles, perPage },
     };
   }
   @Get('price/:range')
@@ -93,11 +116,11 @@ export class MobileController {
   ): Promise<ResType<any>> {
     const rangeArray = range.split('-').map((item) => Number(item));
     console.log(rangeArray);
-    const { count, mobiles, parPage } =
+    const { count, mobiles, perPage } =
       await this.mobileService.getMobilesByPriceRange(page, limit, rangeArray);
     return {
       message: 'success',
-      data: { count, mobiles: mobiles, parPage },
+      data: { count, mobiles: mobiles, perPage },
     };
   }
 

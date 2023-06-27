@@ -1,3 +1,4 @@
+import ReduxProviders from "@/providers/ReduxProvider";
 import React from "react";
 import { getCurrentUser } from "@/lib/session";
 
@@ -5,6 +6,7 @@ import Aside from "@/layouts/Aside";
 import DashboardHeader from "@/components/admin/Header/DashboardHeader";
 import Token from "@/components/Token";
 import { notFound } from "next/navigation";
+import AdminSidebar from "@/components/new/AdminSidebar";
 
 interface MobileLayoutProps {
   children?: React.ReactNode;
@@ -19,10 +21,12 @@ const Dashboard = async ({ children }: MobileLayoutProps) => {
   return (
     <div className="grid h-screen md:grid-cols-[280px_1fr]">
       {/* <Token user={data?.user} /> */}
-      <Aside />
+      <AdminSidebar />
       <section className="relative h-screen overflow-scroll  px-4 scrollbar-hide ">
         <DashboardHeader />
-        <section className="mb-4 ">{children}</section>
+        <section className="mb-4 ">
+          <ReduxProviders>{children}</ReduxProviders>
+        </section>
       </section>
     </div>
   );
