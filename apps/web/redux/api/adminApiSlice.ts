@@ -35,7 +35,7 @@ export const adminApiSlice = createApi({
     }),
 
     updateMobilePrice: mutation({
-      query: (data: PhoneVariants) => ({
+      query: (data: any) => ({
         method: "PUT",
         url: "mobiles/update-price",
         body: data,
@@ -62,6 +62,12 @@ export const adminApiSlice = createApi({
         url: `mobiles/${id}`,
       }),
     }),
+    approvedMobile: mutation({
+      query: (id: string) => ({
+        method: "PUT",
+        url: `mobiles/approve/${id}`,
+      }),
+    }),
   }),
 });
 
@@ -74,4 +80,5 @@ export const {
   useDeleteMobileMutation,
   useGetMobilesByStatusQuery,
   useGetAllMobilesQuery,
+  useApprovedMobileMutation,
 } = adminApiSlice;

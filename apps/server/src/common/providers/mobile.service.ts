@@ -89,7 +89,7 @@ export class MobileService {
     const skip = limit * (currentPage - 1);
     const count = await this.mobileModel.count();
     const latestMobiles = await this.mobileModel
-      .find({ status: Status.UNAPPROVED })
+      .find({})
       .limit(limit)
       .skip(skip)
       .sort({ releasedDate: 'desc' })

@@ -76,6 +76,7 @@ export class MobileController {
   @Put('approve/:id')
   async approvedMobiles(@Param('id') id: string): Promise<ResType<any>> {
     const data = await this.mobileService.approveMobiles(id);
+    console.log(data);
     return {
       message: 'success',
       data: data,

@@ -1,6 +1,7 @@
 "use client";
 
 import Loading from "@/components/admin/shared/Loading";
+import MobileAction from "@/components/new/MobileAction";
 import {
   Table,
   TableBody,
@@ -11,23 +12,41 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetAllMobilesQuery } from "@/redux/api/adminApiSlice";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import React from "react";
-
+import Pagination from "rc-pagination";
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 const AllMobiles = () => {
-  const { data, isLoading } = useGetAllMobilesQuery("all");
+  const [path, setPath] = useState("all");
+  const routPath = usePathname();
+
+  const { data, isLoading } = useGetAllMobilesQuery(path);
 
   if (isLoading) {
     return <Loading />;
   }
+
+  const onchangeHandler = (page: number) => {
+    setPath(`all?page=${page}`);
+  };
   return (
     <Table className="bg-white text-muted-foreground">
-      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableCaption>
+        <Pagination
+          className="flex gap-2 bg-white justify-center p-4 rounded md:text-base "
+          total={data?.count}
+          pageSize={data?.perPage}
+          nextIcon={<ChevronRight />}
+          prevIcon={<ChevronLeft />}
+          onChange={onchangeHandler}
+        />
+      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Product</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead className="text-right">Options</TableHead>
+          <TableHead>Options</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -43,7 +62,9 @@ const AllMobiles = () => {
               </div>
             </TableCell>
             <TableCell>{item.status}</TableCell>
-            <TableCell>Hello</TableCell>
+            <TableCell>
+              <MobileAction status={item.status} data={item} />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -1,14 +1,13 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
-/** * @type {import('tailwindcss').Config} */
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-
-    // Or if using `src` directory:
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   theme: {
     container: {
@@ -76,7 +75,7 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
+    // require("tailwindcss-animate"),
     require("tailwind-scrollbar-hide"),
     require("@tailwindcss/typography"),
   ],

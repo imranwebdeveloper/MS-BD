@@ -31,6 +31,12 @@ export enum PhoneStatus {
   UNAPPROVED = "UNAPPROVED",
 }
 
+export class Status {
+  static readonly UPCOMING: "UPCOMING";
+  static readonly AVAILABLE: "AVAILABLE";
+  static readonly UNAPPROVED: "UNAPPROVED";
+}
+
 export type PhoneStatusType = "UPCOMING" | "AVAILABLE" | "UNAPPROVED";
 
 export interface PhoneShortInfo {
