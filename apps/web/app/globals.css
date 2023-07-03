@@ -74,9 +74,6 @@
   body {
     @apply bg-slate-100 text-sm md:text-base;
   }
-  h1 {
-    @apply text-lg md:text-xl font-bold text-[#354253];
-  }
 }
 
 @layer components {

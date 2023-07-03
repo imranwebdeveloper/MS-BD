@@ -1,4 +1,3 @@
-"use client";
 const allBrands = [
   "Apple",
   "Samsung",
@@ -26,10 +25,7 @@ const allBrands = [
   "Meizu",
   "Micromax",
   "Microsoft",
-  "Panasonic",
-  "Philips",
   "Razer",
-  "Spice",
   "TCL",
   "Tecno",
   "Toshiba",

@@ -10,7 +10,6 @@ import {
 import { useApprovedMobileMutation } from "@/redux/api/adminApiSlice";
 import { ChevronDown } from "lucide-react";
 import { PhoneShortInfo } from "types";
-import PriceUpdateForm from "./PriceUpdateForm";
 import UpdatePriceDialog from "./UpdatePriceDialog";
 
 interface Props {

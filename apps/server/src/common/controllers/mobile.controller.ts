@@ -65,8 +65,9 @@ export class MobileController {
     @Query('limit') limit: number,
     @Query('filter') filter: string,
   ): Promise<ResType<any>> {
+    const status = filter ? filter.toUpperCase() : '';
     const { count, latestMobiles, perPage } =
-      await this.mobileService.getAllMobiles(page, limit);
+      await this.mobileService.getAllMobiles(page, limit, status);
     return {
       message: 'success',
       data: { count, mobiles: latestMobiles, perPage },

@@ -3,7 +3,7 @@ import React from "react";
 import { getCurrentUser } from "@/lib/session";
 
 import Aside from "@/layouts/Aside";
-import DashboardHeader from "@/components/admin/Header/DashboardHeader";
+import DashboardHeader from "@/components/new/DashboardHeader";
 import Token from "@/components/Token";
 import { notFound } from "next/navigation";
 import AdminSidebar from "@/components/new/AdminSidebar";

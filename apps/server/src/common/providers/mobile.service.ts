@@ -83,13 +83,15 @@ export class MobileService {
       ]);
     return { perPage: limit, count, latestMobiles };
   }
-  async getAllMobiles(pageNumber?: number, perPage?: number) {
+  async getAllMobiles(pageNumber?: number, perPage?: number, status?: string) {
     const currentPage = Number(pageNumber) || 1;
     const limit = Number(perPage) || 12;
     const skip = limit * (currentPage - 1);
     const count = await this.mobileModel.count();
+    const cursor = status ? { status } : {};
+    console.log(cursor);
     const latestMobiles = await this.mobileModel
-      .find({})
+      .find(cursor)
       .limit(limit)
       .skip(skip)
       .sort({ releasedDate: 'desc' })
