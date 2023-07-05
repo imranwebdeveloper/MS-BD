@@ -40,7 +40,6 @@ const Mobile = () => {
           </ul>
         </CardContent>
       </Card>
-
       <CardTitle className="col-span-3 py-2">Recent products </CardTitle>
 
       <NewMobile />

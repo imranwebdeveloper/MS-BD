@@ -34,7 +34,6 @@ export class MobileController {
     @Query('page') page: number,
     @Query('limit') limit: number,
   ) {
-    console.log(status);
     const { count, mobiles, perPage } =
       await this.mobileService.getMobilesByStatus({
         data: status,
@@ -77,7 +76,6 @@ export class MobileController {
   @Put('approve/:id')
   async approvedMobiles(@Param('id') id: string): Promise<ResType<any>> {
     const data = await this.mobileService.approveMobiles(id);
-    console.log(data);
     return {
       message: 'success',
       data: data,

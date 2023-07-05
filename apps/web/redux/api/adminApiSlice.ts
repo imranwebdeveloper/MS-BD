@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
-import { CommonRes, PhoneShortRes, PhoneVariants } from "types";
+import { CommonRes, Phone, PhoneShortRes, PhoneVariants } from "types";
 
 export const adminApiSlice = createApi({
   reducerPath: "adminApi",
@@ -25,7 +25,7 @@ export const adminApiSlice = createApi({
       query: (query: string) => `/mobiles/status/?${query}`,
       transformResponse: (response: CommonRes<PhoneShortRes>) => response.data,
     }),
-    getMobileById: query({
+    getMobileById: query<Phone, string>({
       query: (path) => `mobiles/${path}`,
       transformResponse: (response: any) => response.data,
     }),
@@ -81,4 +81,5 @@ export const {
   useGetMobilesByStatusQuery,
   useGetAllMobilesQuery,
   useApprovedMobileMutation,
+  useLazyGetMobileByIdQuery,
 } = adminApiSlice;

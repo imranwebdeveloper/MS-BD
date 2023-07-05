@@ -89,7 +89,6 @@ export class MobileService {
     const skip = limit * (currentPage - 1);
     const count = await this.mobileModel.count();
     const cursor = status ? { status } : {};
-    console.log(cursor);
     const latestMobiles = await this.mobileModel
       .find(cursor)
       .limit(limit)

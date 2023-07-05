@@ -10,7 +10,7 @@ const PhoneContent: React.FC<Props> = ({ content, title }) => {
 
   return (
     <div className=" rounded-md bg-white mt-1 border text-xs md:text-sm tracking-tight  ">
-      <p className="rounded-t-md p-2 md:py-2 md:px-6 text-sm md:text-base font-bold mb-1 bg-origin-50 text-origin-600">
+      <p className="rounded-t-md p-2 md:py-2 md:px-6 text-sm md:text-base font-bold mb-1 text-orange-600 bg-orange-50 ">
         {title}
       </p>
       <ul className="divide-y p-2 md:py-4 md:px-6">
