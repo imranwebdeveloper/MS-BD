@@ -1,3 +1,5 @@
+import { PartialType } from '@nestjs/mapped-types';
+
 export class CreatePhoneDto {
   releasedDate: any;
   title: string;
@@ -20,3 +22,5 @@ export class CreatePhoneDto {
 export class ContentDto {
   [key: string]: any;
 }
+
+export class UpdatePhoneDto extends PartialType(CreatePhoneDto) {}

@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
-import { CommonRes, Phone, PhoneShortRes, PhoneVariants } from "types";
+import {
+  CommonRes,
+  Phone,
+  PhoneShortInfo,
+  PhoneShortRes,
+  PhoneVariants,
+} from "types";
 
 export const adminApiSlice = createApi({
   reducerPath: "adminApi",
@@ -17,7 +23,7 @@ export const adminApiSlice = createApi({
     },
   }),
   endpoints: ({ mutation, query }) => ({
-    getAllMobileList: query({
+    getAllMobileList: query<PhoneShortRes, null>({
       query: () => "/mobiles/latest",
       transformResponse: (response: CommonRes<PhoneShortRes>) => response.data,
     }),
@@ -27,19 +33,22 @@ export const adminApiSlice = createApi({
     }),
     getMobileById: query<Phone, string>({
       query: (path) => `mobiles/${path}`,
-      transformResponse: (response: any) => response.data,
+      transformResponse: (response: CommonRes<Phone>) => response.data,
     }),
+
     getAllMobiles: query<PhoneShortRes, string>({
-      query: (id) => `mobiles/${id}`,
-      transformResponse: (response: any) => response.data,
+      query: (path) => `mobiles/${path}`,
+      transformResponse: (response: CommonRes<PhoneShortRes>) => response.data,
     }),
 
     updateMobilePrice: mutation({
-      query: (data: any) => ({
-        method: "PUT",
-        url: "mobiles/update-price",
-        body: data,
-      }),
+      query: ({ id, ...rest }) => {
+        return {
+          method: "PUT",
+          url: `mobiles/update-price/${id}`,
+          body: { ...rest },
+        };
+      },
     }),
 
     updateMobileContent: mutation({

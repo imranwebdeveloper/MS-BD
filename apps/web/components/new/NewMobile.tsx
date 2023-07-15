@@ -2,23 +2,14 @@
 import Loading from "@/components/admin/shared/Loading";
 import PhoneContent from "@/components/common/PhoneContent";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog";
 import {
   useApprovedMobileMutation,
@@ -28,15 +19,10 @@ import {
 } from "@/redux/api/adminApiSlice";
 import { capitalizeFirstWord } from "@/utils/toTitleCase";
 
-import { createApi } from "@reduxjs/toolkit/query";
 import { ChevronRight } from "lucide-react";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { Eye } from "lucide-react";
 
 import Image from "next/image";
 import React, { useState } from "react";
-import { Phone } from "types";
-import Disabled from "@/components/ui/Disabled";
 
 const NewMobile = () => {
   const { data, isLoading, refetch } = useGetAllMobilesQuery(
@@ -49,15 +35,14 @@ const NewMobile = () => {
 
   const [approvedMobile, approveMobileState] = useApprovedMobileMutation();
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   const onSeeDetailsHandler = (id: string) => {
     setActionSuccess(false);
     getMobileById(id);
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <Card>
       <CardHeader>
@@ -127,15 +112,18 @@ const NewMobile = () => {
                       <DialogTitle className="text-center">{`${mobileState.data?.brand} ${mobileState.data?.model}`}</DialogTitle>
                     </DialogHeader>
                     <article className=" overflow-scroll scrollbar-hide max-h-[500px] mx-auto mt-2">
-                      {Object.keys(mobileState.data?.content).map((section) => (
-                        <PhoneContent
-                          key={section}
-                          content={mobileState.data?.content[section]}
-                          title={capitalizeFirstWord(
-                            section.split("_").join(" ")
-                          )}
-                        />
-                      ))}
+                      {mobileState.data &&
+                        Object.keys(mobileState.data?.content).map(
+                          (section) => (
+                            <PhoneContent
+                              key={section}
+                              content={mobileState.data?.content[section]}
+                              title={capitalizeFirstWord(
+                                section.split("_").join(" ")
+                              )}
+                            />
+                          )
+                        )}
                     </article>
                     <DialogFooter>
                       <Button

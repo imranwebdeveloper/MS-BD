@@ -10,6 +10,8 @@ import { MobileDto } from '../dtos/create-mobile.dto';
 import { VariantDto } from '../dtos/mobile-variant.dto';
 import { UtilsService } from './utils.service';
 import { PaginationQuery } from 'types';
+import { UpdatePhoneDto } from '../dtos/phone.dto';
+import { PaginationDto } from '../dtos/query-pagination.dto';
 
 @Injectable()
 export class MobileService {
@@ -18,6 +20,65 @@ export class MobileService {
 
     private utilsService: UtilsService,
   ) {}
+
+  // new and update code
+  async getMobilesByCompanyName(paginationQuery: PaginationDto, options?: any) {
+    try {
+      const curser = {
+        brand: {
+          $regex: new RegExp('\\b' + paginationQuery.sortBy + '\\b', 'i'),
+        },
+      };
+      const data = await this.getProductByQuery(paginationQuery, curser);
+      return { message: 'success', data: data };
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
+  async updateMobileById<T>(id: string, options: UpdatePhoneDto): Promise<T> {
+    try {
+      const updatedOptions = await this.mobileModel.findOneAndUpdate(
+        { _id: id },
+        { $set: { ...options } },
+      );
+      return { message: 'success', data: updatedOptions } as T;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  // Reusable function
+  async getProductByQuery(paginationQuery: PaginationDto, curser: any) {
+    try {
+      const countCompanyPhones = await this.mobileModel.countDocuments(curser);
+      const sortedCompanyPhones = await this.mobileModel
+        .find(curser)
+        .limit(+paginationQuery.limit)
+        .skip(+paginationQuery.limit * (+paginationQuery.page - 1))
+        .sort({ releasedDate: 'desc' })
+        .select([
+          'brand',
+          'model',
+          'img_url',
+          'variants',
+          'updatedAt',
+          'model_id',
+          'status',
+          'title',
+        ]);
+
+      return {
+        limit: paginationQuery.limit,
+        count: countCompanyPhones,
+        mobiles: sortedCompanyPhones,
+      };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  // new and update code
 
   async getMobiles() {
     try {
@@ -102,6 +163,7 @@ export class MobileService {
         'updatedAt',
         'model_id',
         'status',
+        'title',
       ]);
     return { perPage: limit, count, latestMobiles };
   }
@@ -275,9 +337,8 @@ export class MobileService {
     newPrice: VariantDto[],
   ): Promise<T> {
     try {
-      const id = this.utilsService.verifyId(_id);
       const updatedOptions = await this.mobileModel.updateOne(
-        { _id: id },
+        { _id },
         { $set: { variants: newPrice, status: Status.AVAILABLE } },
       );
       if (!updatedOptions) throw new NotFoundException('Document not found');

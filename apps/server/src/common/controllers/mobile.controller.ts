@@ -11,16 +11,47 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { MobileDto } from '../dtos/create-mobile.dto';
-import { VariantUpdateDto } from '../dtos/mobile-variant.dto';
 import { MobileService } from '../providers/mobile.service';
 import { Role } from '../constants/user-role.enum';
 import { Roles } from '../decorators/roles.decorator';
-import { ResType, UpdateWriteOpResult } from 'types';
+import { ResType } from 'types';
 import { UpperCase } from '../pipes/UpperCase.pipe';
+import { UpdatePhoneDto } from '../dtos/phone.dto';
+import { PaginationDto } from '../dtos/query-pagination.dto';
 
 @Controller('mobiles')
 export class MobileController {
   constructor(private readonly mobileService: MobileService) {}
+  // New and update code
+
+  @Get(':company')
+  async getMobilesByCompanyName(
+    @Query() paginationDto: PaginationDto,
+    @Param('company') companyName: string,
+  ) {
+    const { limit = '12', page = '1' } = paginationDto;
+    const data = await this.mobileService.getMobilesByCompanyName({
+      limit,
+      page,
+      sortBy: companyName,
+    });
+    return data;
+  }
+
+  @Roles(Role.admin)
+  @Put('update-price/:id')
+  async updateMobileVariantPrices(
+    @Body() body: UpdatePhoneDto,
+    @Param('id') id: string,
+  ) {
+    const { status, variants } = body;
+    const data = await this.mobileService.updateMobileById(id, {
+      status,
+      variants,
+    });
+    return data;
+  }
+  // New and update code
 
   @Get()
   async getMobiles(): Promise<ResType<any>> {
@@ -151,20 +182,6 @@ export class MobileController {
       category,
     });
     return { message: 'success', data };
-  }
-
-  @Roles(Role.admin)
-  @Put('update-price')
-  async updateMobileVariantPrices(
-    @Body() body: VariantUpdateDto,
-  ): Promise<ResType<UpdateWriteOpResult>> {
-    const { id, variants } = body;
-    const data =
-      await this.mobileService.updateMobileVariantPrices<UpdateWriteOpResult>(
-        id,
-        variants,
-      );
-    return { message: 'success', data: data };
   }
 
   @Roles(Role.admin)

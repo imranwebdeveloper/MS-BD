@@ -13,10 +13,3 @@ export class VariantDto {
   @IsNumber()
   unofficial: number;
 }
-
-export class VariantUpdateDto {
-  @IsArray()
-  variants: VariantDto[];
-  @IsString()
-  id: string;
-}

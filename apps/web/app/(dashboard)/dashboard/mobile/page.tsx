@@ -1,20 +1,13 @@
 "use client";
 
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import AvailableMobile from "@/components/new/Available";
+import NewMobile from "@/components/new/NewMobile";
+import UpcomingMobile from "@/components/new/UpcomingMobile";
+import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import allBrands from "@/data/allBrands";
 import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
-import NewMobile from "./[brand]/NewMobile";
-import AvailableMobile from "./[brand]/Available";
-import UpcomingMobile from "./[brand]/UpcomingMobile";
 
 const Mobile = () => {
   const router = useRouter();
