@@ -12,4 +12,8 @@ export class PaginationDto {
   @IsString()
   @IsOptional()
   sortBy?: string;
+
+  @IsString()
+  @IsOptional()
+  brand?: string;
 }

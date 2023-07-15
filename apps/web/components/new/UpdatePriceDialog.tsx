@@ -30,12 +30,12 @@ const UpdatePriceDialog = ({ mobile }: { mobile: PhoneShortInfo }) => {
       const unofficialInputName = `unofficial-${i}`;
 
       return (
-        <div key={i} className="flex gap-2">
+        <div key={i} className="flex gap-1">
           <p className="flex w-full items-center">{`${ROM}/${RAM} GB`}</p>
           <input
             type="number"
             name={officialInputName}
-            className="w-full rounded-md border p-3 outline-none"
+            className="w-full rounded-md border p-1 outline-none"
             placeholder="Official"
             defaultValue={official}
             onChange={handlePrice}
@@ -44,7 +44,7 @@ const UpdatePriceDialog = ({ mobile }: { mobile: PhoneShortInfo }) => {
           <input
             type="number"
             name={unofficialInputName}
-            className="w-full rounded-md border p-3 outline-none"
+            className="w-full rounded-md border p-1 outline-none"
             placeholder="Unofficial"
             defaultValue={unofficial}
             onChange={handlePrice}
@@ -75,17 +75,14 @@ const UpdatePriceDialog = ({ mobile }: { mobile: PhoneShortInfo }) => {
         </div>
       ) : (
         <div className="col-span-2 flex flex-col gap-2">
-          <h1 className="text-center text-2xl font-semibold mb-4">
-            {mobile.title}
-          </h1>
-          <div className="mb-2 grid grid-cols-3 bg-slate-50 py-2 font-bold">
+          <div className="mb-2 grid grid-cols-3 bg-slate-50 p-1 font-bold">
             <p>Variant</p>
             <p>Official Price</p>
             <p>Unofficial Price</p>
           </div>
           {renderVariantInputs()}
 
-          <DialogFooter>
+          <DialogFooter className="mt-4">
             <Button
               onClick={async () => {
                 await updateMobilePrice({
@@ -96,7 +93,7 @@ const UpdatePriceDialog = ({ mobile }: { mobile: PhoneShortInfo }) => {
               }}
               disabled={mobilePriceState.isLoading}
             >
-              {mobilePriceState.isLoading ? "Please wait" : "Update"}
+              {mobilePriceState.isLoading ? "Please wait" : "Update price"}
             </Button>
           </DialogFooter>
         </div>

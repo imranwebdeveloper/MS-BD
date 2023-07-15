@@ -9,6 +9,7 @@ import {
   Query,
   Req,
   ParseIntPipe,
+  Patch,
 } from '@nestjs/common';
 import { MobileDto } from '../dtos/create-mobile.dto';
 import { MobileService } from '../providers/mobile.service';
@@ -22,24 +23,50 @@ import { PaginationDto } from '../dtos/query-pagination.dto';
 @Controller('mobiles')
 export class MobileController {
   constructor(private readonly mobileService: MobileService) {}
-  // New and update code
 
-  @Get(':company')
-  async getMobilesByCompanyName(
-    @Query() paginationDto: PaginationDto,
-    @Param('company') companyName: string,
+  // New and update code
+  @Get()
+  async getMobiles(@Query() paginationDto: PaginationDto) {
+    const { limit = '12', page = '1', brand } = paginationDto;
+
+    const curser = brand
+      ? {
+          brand: {
+            $regex: new RegExp('\\b' + brand + '\\b', 'i'),
+          },
+        }
+      : {};
+
+    const data = await this.mobileService.getProductByQuery(
+      { limit, page },
+      curser,
+    );
+
+    return data;
+  }
+
+  @Get(':id')
+  async getMobileById(@Param('id') id: string) {
+    const data = await this.mobileService.getMobileById(id);
+    return data;
+  }
+
+  @Roles(Role.admin)
+  @Patch('update-status/:id')
+  async updateMobileStatus(
+    @Body() body: UpdatePhoneDto,
+    @Param('id') id: string,
   ) {
-    const { limit = '12', page = '1' } = paginationDto;
-    const data = await this.mobileService.getMobilesByCompanyName({
-      limit,
-      page,
-      sortBy: companyName,
+    const { status, category } = body;
+    const data = await this.mobileService.updateMobileById(id, {
+      status,
+      category,
     });
     return data;
   }
 
   @Roles(Role.admin)
-  @Put('update-price/:id')
+  @Patch('update-price/:id')
   async updateMobileVariantPrices(
     @Body() body: UpdatePhoneDto,
     @Param('id') id: string,
@@ -51,13 +78,14 @@ export class MobileController {
     });
     return data;
   }
+
   // New and update code
 
-  @Get()
-  async getMobiles(): Promise<ResType<any>> {
-    const data = await this.mobileService.getMobiles();
-    return { message: 'success', data };
-  }
+  // @Get()
+  // async getMobiles(): Promise<ResType<any>> {
+  //   const data = await this.mobileService.getMobiles();
+  //   return { message: 'success', data };
+  // }
 
   @Get('status')
   async getMobilesByStatus(
@@ -155,11 +183,11 @@ export class MobileController {
     };
   }
 
-  @Get(':id')
-  async getMobileById(@Param('id') id: string): Promise<ResType<MobileDto>> {
-    const mobile = await this.mobileService.getMobileById(id);
-    return { message: 'success', data: mobile };
-  }
+  // @Get(':id')
+  // async getMobileById(@Param('id') id: string): Promise<ResType<MobileDto>> {
+  //   const mobile = await this.mobileService.getMobileById(id);
+  //   return { message: 'success', data: mobile };
+  // }
 
   @Get('model/:name')
   async getMobileByModelId(

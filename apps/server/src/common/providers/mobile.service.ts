@@ -22,17 +22,12 @@ export class MobileService {
   ) {}
 
   // new and update code
-  async getMobilesByCompanyName(paginationQuery: PaginationDto, options?: any) {
+  async getMobileById(id: string): Promise<any> {
     try {
-      const curser = {
-        brand: {
-          $regex: new RegExp('\\b' + paginationQuery.sortBy + '\\b', 'i'),
-        },
-      };
-      const data = await this.getProductByQuery(paginationQuery, curser);
-      return { message: 'success', data: data };
+      const data = await this.mobileModel.findById(id);
+      return { message: 'success', data };
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException(error.message);
     }
   }
 
@@ -41,6 +36,7 @@ export class MobileService {
       const updatedOptions = await this.mobileModel.findOneAndUpdate(
         { _id: id },
         { $set: { ...options } },
+        { new: true },
       );
       return { message: 'success', data: updatedOptions } as T;
     } catch (error) {
@@ -69,9 +65,12 @@ export class MobileService {
         ]);
 
       return {
-        limit: paginationQuery.limit,
-        count: countCompanyPhones,
-        mobiles: sortedCompanyPhones,
+        message: 'success',
+        data: {
+          limit: +paginationQuery.limit,
+          count: +countCompanyPhones,
+          mobiles: sortedCompanyPhones,
+        },
       };
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -261,15 +260,6 @@ export class MobileService {
     }
   }
 
-  async getMobileById(id: string): Promise<any> {
-    try {
-      const document = await this.mobileModel.findById(id);
-      if (!document) throw new NotFoundException('Mobile not found');
-      return document;
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
-  }
   async getMobileByModelId(model: string): Promise<any> {
     try {
       const document = await this.mobileModel.findOne({ model_id: model });
