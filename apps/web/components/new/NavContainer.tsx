@@ -9,8 +9,8 @@ const NavContainer = () => {
   const { brand, slug } = useParams();
 
   return (
-    <section className="main">
-      <div className="layout container px-1">
+    <section className="root mt-2">
+      <div className="page">
         <SubHeader slug={brand ? brand : ""} />
         <PriceRange slug={slug ? slug : ""} />
         {/* <PhoneCategory slug={slug ? slug : ""} /> */}

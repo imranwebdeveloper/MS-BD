@@ -1,6 +1,6 @@
 import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
-export class PaginationDto {
+export class MobileQueryDto {
   @IsNumberString()
   @IsOptional()
   page?: string;
@@ -16,4 +16,12 @@ export class PaginationDto {
   @IsString()
   @IsOptional()
   brand?: string;
+
+  @IsString()
+  @IsOptional()
+  status?: string;
+
+  @IsString()
+  @IsOptional()
+  model: string;
 }

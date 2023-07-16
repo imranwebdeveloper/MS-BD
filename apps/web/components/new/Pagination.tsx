@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -22,6 +24,7 @@ const MyPagination: React.FC<Props> = ({
   const onchangeHandler = (page: number) => {
     router.push(`${path}${page}`);
   };
+
   return (
     <Pagination
       className="flex gap-2 bg-white justify-center p-4 rounded md:text-base "
@@ -30,7 +33,7 @@ const MyPagination: React.FC<Props> = ({
       nextIcon={<ChevronRight />}
       prevIcon={<ChevronLeft />}
       onChange={onchangeHandler}
-      defaultCurrent={currentPage}
+      defaultCurrent={Number(currentPage)}
     />
   );
 };

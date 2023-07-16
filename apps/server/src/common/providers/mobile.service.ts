@@ -11,7 +11,7 @@ import { VariantDto } from '../dtos/mobile-variant.dto';
 import { UtilsService } from './utils.service';
 import { PaginationQuery } from 'types';
 import { UpdatePhoneDto } from '../dtos/phone.dto';
-import { PaginationDto } from '../dtos/query-pagination.dto';
+import { MobileQueryDto } from '../dtos/query-pagination.dto';
 
 @Injectable()
 export class MobileService {
@@ -44,14 +44,31 @@ export class MobileService {
     }
   }
 
-  // Reusable function
-  async getProductByQuery(paginationQuery: PaginationDto, curser: any) {
+  async deleteMobileById(_id: string) {
     try {
+      const deleteOptions = await this.mobileModel.findOneAndDelete({ _id });
+      return { message: 'success', data: { id: deleteOptions.id } };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  // Reusable function
+  async getProductByQuery(paginationQuery: MobileQueryDto) {
+    try {
+      let curser = {};
+      const { limit = '12', page = '1', brand, status } = paginationQuery;
+      if (brand) {
+        curser['brand'] = { $regex: new RegExp('\\b' + brand + '\\b', 'i') };
+      } else if (status) {
+        curser['status'] = status;
+      }
+
       const countCompanyPhones = await this.mobileModel.countDocuments(curser);
       const sortedCompanyPhones = await this.mobileModel
         .find(curser)
-        .limit(+paginationQuery.limit)
-        .skip(+paginationQuery.limit * (+paginationQuery.page - 1))
+        .limit(+limit)
+        .skip(+limit * (+page - 1))
         .sort({ releasedDate: 'desc' })
         .select([
           'brand',
@@ -67,11 +84,20 @@ export class MobileService {
       return {
         message: 'success',
         data: {
-          limit: +paginationQuery.limit,
+          limit: +limit,
           count: +countCompanyPhones,
           mobiles: sortedCompanyPhones,
         },
       };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+  async getMobileByModel(model_id: string, mobileQueryDto?: MobileQueryDto) {
+    try {
+      const data = await this.mobileModel.findOne({ model_id });
+      if (!data) throw new NotFoundException('No Mobile List found');
+      return { message: 'success', data };
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -98,115 +124,6 @@ export class MobileService {
     }
   }
 
-  async getMobilesByStatus(query: PaginationQuery<string>) {
-    const currentPage = Number(query.page) || 1;
-    const limit = Number(query.limit) || 12;
-    const skip = limit * (currentPage - 1);
-    const count = await this.mobileModel.count();
-
-    const latestMobiles = await this.mobileModel
-      .find({ status: query.data })
-      .limit(limit)
-      .skip(skip)
-      .sort({ releasedDate: 'desc' })
-      .select([
-        'brand',
-        'model',
-        'img_url',
-        'variants',
-        'updatedAt',
-        'model_id',
-        'status',
-      ]);
-    return { perPage: limit, count, mobiles: latestMobiles };
-  }
-
-  async getLatestMobiles(pageNumber?: number, perPage?: number) {
-    const currentPage = Number(pageNumber) || 1;
-    const limit = Number(perPage) || 12;
-    const skip = limit * (currentPage - 1);
-    const count = await this.mobileModel.count();
-    const latestMobiles = await this.mobileModel
-      .find({})
-      .limit(limit)
-      .skip(skip)
-      .sort({ releasedDate: 'desc' })
-      .select([
-        'brand',
-        'model',
-        'img_url',
-        'variants',
-        'updatedAt',
-        'model_id',
-        'status',
-        'title',
-      ]);
-    return { perPage: limit, count, latestMobiles };
-  }
-  async getAllMobiles(pageNumber?: number, perPage?: number, status?: string) {
-    const currentPage = Number(pageNumber) || 1;
-    const limit = Number(perPage) || 12;
-    const skip = limit * (currentPage - 1);
-    const count = await this.mobileModel.count();
-    const cursor = status ? { status } : {};
-    const latestMobiles = await this.mobileModel
-      .find(cursor)
-      .limit(limit)
-      .skip(skip)
-      .sort({ releasedDate: 'desc' })
-      .select([
-        'brand',
-        'model',
-        'img_url',
-        'variants',
-        'updatedAt',
-        'model_id',
-        'status',
-        'title',
-      ]);
-    return { perPage: limit, count, latestMobiles };
-  }
-
-  async approveMobiles(id: string) {
-    const updatedOptions = await this.mobileModel.updateOne(
-      { _id: id },
-      { $set: { status: Status.UPCOMING } },
-    );
-    return updatedOptions;
-  }
-
-  async getMobilesByCategory(
-    category: string,
-    pageNumber: string,
-    perPage: string,
-  ) {
-    try {
-      const curser = {
-        category: { $regex: new RegExp('\\b' + category + '\\b', 'i') },
-      };
-
-      const currentPage = Number(pageNumber) || 1;
-      const limit = Number(perPage) || 12;
-      const skip = limit * (currentPage - 1);
-      const count = await this.mobileModel.countDocuments(curser);
-      const brands = await this.mobileModel
-        .find(curser)
-        .limit(limit)
-        .skip(skip)
-        .sort({ releasedDate: 'desc' })
-        .select([
-          'brand',
-          'model',
-          'img_url',
-          'variants',
-          'updatedAt',
-          'model_id',
-        ]);
-      return { perPage: limit, count, mobiles: brands };
-    } catch (error) {
-      throw new BadRequestException(error);
-    }
-  }
   async getMobilesByPriceRange(
     pageNumber: string,
     perPage: string,
@@ -260,15 +177,6 @@ export class MobileService {
     }
   }
 
-  async getMobileByModelId(model: string): Promise<any> {
-    try {
-      const document = await this.mobileModel.findOne({ model_id: model });
-      if (!document) throw new NotFoundException('Mobile not found');
-      return document;
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
-  }
   async saveNewMobile(mobile: MobileDto): Promise<{ id: string }> {
     try {
       const doc = new this.mobileModel(mobile);
@@ -276,38 +184,6 @@ export class MobileService {
       return { id: doc.id };
     } catch (error) {
       throw new BadRequestException(error.message);
-    }
-  }
-
-  async getMobilesByBrandName(
-    name: string,
-    pageNumber: string,
-    perPage: string,
-  ) {
-    try {
-      const curser = {
-        brand: { $regex: new RegExp('\\b' + name + '\\b', 'i') },
-      };
-      const currentPage = Number(pageNumber) || 1;
-      const limit = Number(perPage) || 12;
-      const skip = limit * (currentPage - 1);
-      const count = await this.mobileModel.countDocuments(curser);
-      const brands = await this.mobileModel
-        .find(curser)
-        .limit(limit)
-        .skip(skip)
-        .sort({ releasedDate: 'desc' })
-        .select([
-          'brand',
-          'model',
-          'img_url',
-          'variants',
-          'updatedAt',
-          'model_id',
-        ]);
-      return { perPage: limit, count, mobiles: brands };
-    } catch (error) {
-      throw new BadRequestException(error);
     }
   }
 
@@ -349,18 +225,6 @@ export class MobileService {
       );
       if (!updatedOptions) throw new NotFoundException('Document not found');
       return updatedOptions as T;
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
-  }
-  async deleteMobileById(_id: string): Promise<{ id: string }> {
-    try {
-      const id = this.utilsService.verifyId(_id);
-      const deleteOptions = await this.mobileModel.findOneAndDelete({
-        _id: id,
-      });
-      if (!deleteOptions) throw new NotFoundException('Document not found');
-      return { id: deleteOptions.id };
     } catch (error) {
       throw new BadRequestException(error.message);
     }

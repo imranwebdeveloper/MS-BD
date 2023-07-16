@@ -2,7 +2,6 @@ import ReduxProviders from "@/providers/ReduxProvider";
 import React from "react";
 import { getCurrentUser } from "@/lib/session";
 
-import Aside from "@/layouts/Aside";
 import DashboardHeader from "@/components/new/DashboardHeader";
 import Token from "@/components/Token";
 import { notFound } from "next/navigation";

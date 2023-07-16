@@ -18,7 +18,7 @@ import { Roles } from '../decorators/roles.decorator';
 import { ResType } from 'types';
 import { UpperCase } from '../pipes/UpperCase.pipe';
 import { UpdatePhoneDto } from '../dtos/phone.dto';
-import { PaginationDto } from '../dtos/query-pagination.dto';
+import { MobileQueryDto } from '../dtos/query-pagination.dto';
 
 @Controller('mobiles')
 export class MobileController {
@@ -26,28 +26,20 @@ export class MobileController {
 
   // New and update code
   @Get()
-  async getMobiles(@Query() paginationDto: PaginationDto) {
-    const { limit = '12', page = '1', brand } = paginationDto;
-
-    const curser = brand
-      ? {
-          brand: {
-            $regex: new RegExp('\\b' + brand + '\\b', 'i'),
-          },
-        }
-      : {};
-
-    const data = await this.mobileService.getProductByQuery(
-      { limit, page },
-      curser,
-    );
-
+  async getMobiles(@Query() mobileQueryDto: MobileQueryDto) {
+    const data = await this.mobileService.getProductByQuery(mobileQueryDto);
     return data;
   }
 
   @Get(':id')
   async getMobileById(@Param('id') id: string) {
     const data = await this.mobileService.getMobileById(id);
+    return data;
+  }
+
+  @Get('model/:id')
+  async findOneMobileByQuery(@Param('id') id: string) {
+    const data = await this.mobileService.getMobileByModel(id);
     return data;
   }
 
@@ -58,6 +50,7 @@ export class MobileController {
     @Param('id') id: string,
   ) {
     const { status, category } = body;
+
     const data = await this.mobileService.updateMobileById(id, {
       status,
       category,
@@ -76,97 +69,19 @@ export class MobileController {
       status,
       variants,
     });
+
+    return data;
+  }
+
+  @Roles(Role.admin)
+  @Delete(':id')
+  async deleteMobileById(@Param('id') id: string) {
+    const data = await this.mobileService.deleteMobileById(id);
     return data;
   }
 
   // New and update code
 
-  // @Get()
-  // async getMobiles(): Promise<ResType<any>> {
-  //   const data = await this.mobileService.getMobiles();
-  //   return { message: 'success', data };
-  // }
-
-  @Get('status')
-  async getMobilesByStatus(
-    @Query('filter', UpperCase) status: string,
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-  ) {
-    const { count, mobiles, perPage } =
-      await this.mobileService.getMobilesByStatus({
-        data: status,
-        page,
-        limit,
-      });
-    return {
-      message: 'success',
-      data: { count, mobiles, perPage },
-    };
-  }
-
-  @Get('latest')
-  async getLatestMobiles(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-  ): Promise<ResType<any>> {
-    const { count, latestMobiles, perPage } =
-      await this.mobileService.getLatestMobiles(page, limit);
-    return {
-      message: 'success',
-      data: { count, mobiles: latestMobiles, perPage },
-    };
-  }
-  @Get('all')
-  async getUnapprovedMobiles(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Query('filter') filter: string,
-  ): Promise<ResType<any>> {
-    const status = filter ? filter.toUpperCase() : '';
-    const { count, latestMobiles, perPage } =
-      await this.mobileService.getAllMobiles(page, limit, status);
-    return {
-      message: 'success',
-      data: { count, mobiles: latestMobiles, perPage },
-    };
-  }
-
-  @Put('approve/:id')
-  async approvedMobiles(@Param('id') id: string): Promise<ResType<any>> {
-    const data = await this.mobileService.approveMobiles(id);
-    return {
-      message: 'success',
-      data: data,
-    };
-  }
-
-  @Get('brand/:name')
-  async getMobilesByBrandsName(
-    @Param('name') name: string,
-    @Query('page') page: string,
-    @Query('limit') limit: string,
-  ): Promise<ResType<any>> {
-    const data = await this.mobileService.getMobilesByBrandName(
-      name,
-      page,
-      limit,
-    );
-    return { message: 'success', data };
-  }
-  @Get('category/:slug')
-  async getMobilesByCategory(
-    @Param('slug') slug: string,
-    @Query('page') page: string,
-    @Query('limit') limit: string,
-  ): Promise<ResType<any>> {
-    const { count, mobiles, perPage } =
-      await this.mobileService.getMobilesByCategory(slug, page, limit);
-    return {
-      message: 'success',
-      data: { count, mobiles: mobiles, perPage },
-    };
-  }
   @Get('price/:range')
   async getMobilesByPriceRange(
     @Param('range') range: string,
@@ -181,20 +96,6 @@ export class MobileController {
       message: 'success',
       data: { count, mobiles: mobiles, perPage },
     };
-  }
-
-  // @Get(':id')
-  // async getMobileById(@Param('id') id: string): Promise<ResType<MobileDto>> {
-  //   const mobile = await this.mobileService.getMobileById(id);
-  //   return { message: 'success', data: mobile };
-  // }
-
-  @Get('model/:name')
-  async getMobileByModelId(
-    @Param('name') name: string,
-  ): Promise<ResType<MobileDto>> {
-    const data = await this.mobileService.getMobileByModelId(name);
-    return { message: 'success', data };
   }
 
   @Roles(Role.admin)
@@ -222,15 +123,6 @@ export class MobileController {
       content,
     );
 
-    return { message: 'success', data };
-  }
-
-  @Roles(Role.admin)
-  @Delete(':id')
-  async deleteMobileById(
-    @Param('id') id: string,
-  ): Promise<ResType<{ id: string }>> {
-    const data = await this.mobileService.deleteMobileById(id);
     return { message: 'success', data };
   }
 }

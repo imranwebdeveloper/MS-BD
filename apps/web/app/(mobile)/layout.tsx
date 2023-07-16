@@ -1,6 +1,6 @@
 import Footer from "@/components/container/footer/Footer";
 import Header from "@/components/container/header/Header";
-import NavContainer from "@/layouts/NavContainer";
+import NavContainer from "@/components/new/NavContainer";
 
 import React from "react";
 

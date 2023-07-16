@@ -21,8 +21,8 @@ const Header = () => {
   }
 
   return (
-    <header className="root header ">
-      <div className="layout gap-2 flex justify-between items-center container ">
+    <header className="root header">
+      <div className="page gap-2 flex justify-between items-center container ">
         <div>
           <Link href="/">
             <Image
@@ -36,7 +36,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="df_jc_ic gap-2 ">
+        <div className="flex justify-center items-center gap-2 ">
           <button
             type="button"
             onClick={openModal}

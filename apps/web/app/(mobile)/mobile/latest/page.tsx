@@ -4,10 +4,20 @@ import MobileCardContainer from "@/components/common/MobileCardContainer";
 import { headers } from "@/lib/fetchHeader";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import MyPagination from "@/components/new/Pagination";
+import { Phones, ResponsePhones } from "types";
 
-const getData = async (pageNumber: string) => {
+const getData = async ({
+  page,
+  limit,
+  status,
+}: {
+  page: string;
+  limit: string;
+  status: string;
+}) => {
   const res = await fetch(
-    `${process.env["API_URL"]}/mobiles/latest?page=${pageNumber}` as string,
+    `${process.env["API_URL"]}/mobiles?status=${status}&page=${page}&limit=${limit}` as string,
     {
       headers: headers,
       cache: "no-store",
@@ -52,36 +62,30 @@ export async function generateMetadata(): Promise<Metadata> {
 const LatestMobiles = async ({
   searchParams,
 }: {
-  searchParams: { page: string };
+  searchParams: { page: string; limit: string; status: string };
 }) => {
-  const { data } = await getData(searchParams.page);
+  const { data }: ResponsePhones = await getData(searchParams);
   if (!data) {
     notFound();
   }
-
-  const { count, mobiles, parPage } = data;
-  const currenPage = parseInt(searchParams.page);
+  const { count, mobiles, limit } = data;
 
   return (
-    <section className="main">
-      <section className="layout container">
-        <div>
-          <div className="my-2 mt-4">
-            <h1 className="text-2xl">
-              Latest Mobile Phones Price in Bangladesh
-            </h1>
-          </div>
-          <MobileCardContainer data={mobiles} />
+    <section className="page my-8">
+      <div>
+        <div className="my-2 ">
+          <h1 className="text-2xl">Latest Mobile Phones Price in Bangladesh</h1>
         </div>
-        {mobiles.length > 0 && (
-          <Pagination
-            currenPage={currenPage ? currenPage : 1}
-            totalProduct={count}
-            parPage={parPage}
-            path="mobile/latest"
-          />
-        )}
-      </section>
+        <MobileCardContainer data={mobiles} />
+      </div>
+      {limit < count && (
+        <MyPagination
+          total={count}
+          pageSize={limit}
+          path={`mobile/latest?status=AVAILABLE&limit=20&page=`}
+          currentPage={searchParams.page}
+        />
+      )}
     </section>
   );
 };

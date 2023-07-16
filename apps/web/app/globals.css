@@ -77,24 +77,18 @@
 }
 
 @layer components {
-  .df_jb_ic {
-    @apply flex justify-between items-center;
-  }
-  .df_jc_ic {
-    @apply flex justify-center items-center;
-  }
   .root {
     @apply px-2;
   }
-  .layout {
-    @apply max-w-5xl mx-auto;
+
+  .page {
+    @apply max-w-6xl mx-auto container p-0;
   }
+
   .header {
-    @apply bg-white  border-b border-b  py-2;
+    @apply bg-white  border-b  py-2;
   }
-  .main {
-    @apply py-2;
-  }
+
   .footer {
     @apply bg-white border-t  py-2;
   }

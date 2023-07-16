@@ -15,7 +15,7 @@ export const adminApi = createApi({
       // return headers;
     },
   }),
-  // new code
+
   endpoints: ({ mutation, query }) => ({
     getAllMobiles: query<Phones, string>({
       query: (query: string) => `/mobiles?${query}`,
@@ -35,6 +35,23 @@ export const adminApi = createApi({
         };
       },
     }),
+
+    updateMobilePrice: mutation({
+      query: ({ id, ...rest }) => {
+        return {
+          method: "PATCH",
+          url: `mobiles/update-price/${id}`,
+          body: { ...rest },
+        };
+      },
+    }),
+
+    deleteMobileById: mutation({
+      query: (id) => ({
+        method: "DELETE",
+        url: `mobiles/${id}`,
+      }),
+    }),
   }),
 });
 
@@ -42,4 +59,6 @@ export const {
   useGetAllMobilesQuery,
   useGetMobileByIdQuery,
   useUpdateMobileStatusMutation,
+  useUpdateMobilePriceMutation,
+  useDeleteMobileByIdMutation,
 } = adminApi;

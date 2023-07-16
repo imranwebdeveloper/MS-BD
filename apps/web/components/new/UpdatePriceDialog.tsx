@@ -1,10 +1,15 @@
 import { PhoneShortInfo, PhoneVariants } from "types";
 import { useState, ChangeEvent } from "react";
-import { DialogFooter } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { useUpdateMobilePriceMutation } from "@/redux/api/adminApiSlice";
+import { useUpdateMobilePriceMutation } from "@/redux/api/adminApi";
 
-const UpdatePriceDialog = ({ mobile }: { mobile: PhoneShortInfo }) => {
+const UpdatePriceDialog = ({
+  mobile,
+  refetch,
+}: {
+  mobile: PhoneShortInfo;
+  refetch: () => void;
+}) => {
   const [newPrice, setNewPrice] = useState<PhoneVariants[]>(mobile.variants);
   const [updateMobilePrice, mobilePriceState] = useUpdateMobilePriceMutation();
 
@@ -55,50 +60,30 @@ const UpdatePriceDialog = ({ mobile }: { mobile: PhoneShortInfo }) => {
   };
 
   return (
-    <>
-      {mobilePriceState.isSuccess ? (
-        <div className="bg-white p-6  md:mx-auto">
-          <svg
-            viewBox="0 0 24 24"
-            className={`text-green-600 w-16 h-16 mx-auto my-6`}
-          >
-            <path
-              fill="currentColor"
-              d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z"
-            ></path>
-          </svg>
-          <div className="text-center">
-            <h3 className="md:text-2xl text-base text-gray-900 font-semibold text-center">
-              Approved for available phone
-            </h3>
-          </div>
-        </div>
-      ) : (
-        <div className="col-span-2 flex flex-col gap-2">
-          <div className="mb-2 grid grid-cols-3 bg-slate-50 p-1 font-bold">
-            <p>Variant</p>
-            <p>Official Price</p>
-            <p>Unofficial Price</p>
-          </div>
-          {renderVariantInputs()}
+    <div className="col-span-2 flex flex-col gap-2">
+      <div className="mb-2 grid grid-cols-3 bg-slate-50 p-1 font-bold">
+        <p>Variant</p>
+        <p>Official Price</p>
+        <p>Unofficial Price</p>
+      </div>
+      {renderVariantInputs()}
 
-          <DialogFooter className="mt-4">
-            <Button
-              onClick={async () => {
-                await updateMobilePrice({
-                  variants: newPrice,
-                  id: mobile._id,
-                  status: "AVAILABLE",
-                });
-              }}
-              disabled={mobilePriceState.isLoading}
-            >
-              {mobilePriceState.isLoading ? "Please wait" : "Update price"}
-            </Button>
-          </DialogFooter>
-        </div>
-      )}
-    </>
+      <div className="mt-4 flex justify-end">
+        <Button
+          onClick={async () => {
+            await updateMobilePrice({
+              variants: newPrice,
+              id: mobile._id,
+              status: "AVAILABLE",
+            });
+            refetch();
+          }}
+          disabled={mobilePriceState.isLoading}
+        >
+          {mobilePriceState.isLoading ? "Please wait" : "Update price"}
+        </Button>
+      </div>
+    </div>
   );
 };
 

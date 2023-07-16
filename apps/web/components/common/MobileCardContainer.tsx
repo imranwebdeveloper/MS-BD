@@ -9,7 +9,7 @@ interface Props {
 
 const MobileCardContainer = ({ data }: Props) => {
   return (
-    <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 rounded gap-2 md:gap-4  ">
+    <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  rounded gap-2 md:gap-4  ">
       {data.length <= 0 && <h1 className="text-2xl">No Data Found</h1>}
       {data.map((item) => {
         return (

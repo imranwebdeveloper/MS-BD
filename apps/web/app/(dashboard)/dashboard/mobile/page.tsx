@@ -1,8 +1,6 @@
 "use client";
 
-import AvailableMobile from "@/components/new/Available";
-import NewMobile from "@/components/new/NewMobile";
-import UpcomingMobile from "@/components/new/UpcomingMobile";
+import RecentMobile from "@/components/new/RecentMobile";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import allBrands from "@/data/allBrands";
 import { ChevronRight } from "lucide-react";
@@ -34,10 +32,9 @@ const Mobile = () => {
         </CardContent>
       </Card>
       <CardTitle className="col-span-3 py-2">Recent products </CardTitle>
-
-      <NewMobile />
-      <UpcomingMobile />
-      <AvailableMobile />
+      <RecentMobile status="UNAPPROVED" title="New unapproved" />
+      <RecentMobile status="UPCOMING" title="Upcoming" />
+      <RecentMobile status="AVAILABLE" title="Available" />
     </section>
   );
 };

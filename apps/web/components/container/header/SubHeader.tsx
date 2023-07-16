@@ -1,4 +1,5 @@
 "use client";
+import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 interface Props {
@@ -31,12 +32,12 @@ const SubHeader: React.FC<Props> = ({ slug }) => {
             key={index}
             className={`list-none py-1 px-2  md:px-3 ${
               slug === item.toLowerCase()
-                ? "bg-primary-text-light text-secondary-bg-light"
+                ? buttonVariants({ variant: "default" })
                 : ""
             }`}
           >
             <Link
-              href={`mobile/${item.toLowerCase()}`}
+              href={`/mobile/${item.toLowerCase()}`}
               className="text-center "
             >
               {item}

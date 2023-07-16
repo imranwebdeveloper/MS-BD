@@ -56,8 +56,14 @@ export interface PhoneShortRes {
   perPage: number;
   mobiles: PhoneShortInfo[];
 }
+
 export interface Phones {
   count: number;
   limit: number;
   mobiles: PhoneShortInfo[];
+}
+
+export interface ResponsePhones {
+  status: string;
+  data: Phones;
 }
