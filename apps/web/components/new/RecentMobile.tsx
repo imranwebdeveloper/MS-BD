@@ -1,16 +1,19 @@
 "use client";
-import Loading from "@/components/admin/shared/Loading";
+import Loading from "@/components/ui/Loading";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 import { useGetAllMobilesQuery } from "@/redux/api/adminApi";
 
 import { ChevronRight } from "lucide-react";
-
 import Image from "next/image";
 import Link from "next/link";
 
-const RecentMobile = ({ status, title }: { status: string; title: string }) => {
+interface Props {
+  status: string;
+  title: string;
+}
+const RecentMobile: React.FC<Props> = ({ status, title }) => {
   const { isLoading, data, isError } = useGetAllMobilesQuery(
     `status=${status}&limit=6`
   );
@@ -53,6 +56,8 @@ const RecentMobile = ({ status, title }: { status: string; title: string }) => {
       </Card>
     );
   }
+
+  return <h1>Error</h1>;
 };
 
 export default RecentMobile;

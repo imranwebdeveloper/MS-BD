@@ -1,5 +1,4 @@
-import MobileCardContainer from "@/components/common/MobileCardContainer";
-import Pagination from "@/components/common/Pagination";
+import MobileCardContainer from "@/components/new/MobileCardContainer";
 import { headers } from "@/lib/fetchHeader";
 import { toCategoryCase } from "@/utils/toCategoryCase";
 import { Metadata } from "next";
@@ -79,14 +78,14 @@ const CategoryPhones = async ({
           </div>
           <MobileCardContainer data={mobiles} />
         </div>
-        {mobiles.length >= 12 && (
+        {/* {mobiles.length >= 12 && (
           <Pagination
             currenPage={parseInt(searchParams.page)}
             totalProduct={count}
             parPage={parPage}
             path={`category/${params.slug}`}
           />
-        )}
+        )} */}
       </section>
     </section>
   );

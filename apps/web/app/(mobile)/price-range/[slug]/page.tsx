@@ -1,6 +1,5 @@
-import MobileCardContainer from "@/components/common/MobileCardContainer";
+import MobileCardContainer from "@/components/new/MobileCardContainer";
 import React from "react";
-import Pagination from "@/components/common/Pagination";
 import { headers } from "@/lib/fetchHeader";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";

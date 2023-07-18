@@ -1,9 +1,9 @@
 "use client";
-import Loading from "@/components/admin/shared/Loading";
+import Loading from "@/components/ui/Loading";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-import PhoneContent from "@/components/common/PhoneContent";
+import PhoneContent from "@/components/new/PhoneContent";
 import { capitalizeFirstWord } from "@/utils/toTitleCase";
 import UpdatePriceDialog from "@/components/new/UpdatePriceDialog";
 import { Badge } from "@/components/ui/badge";

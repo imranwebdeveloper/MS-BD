@@ -1,5 +1,5 @@
 "use client";
-import Loading from "@/components/admin/shared/Loading";
+import Loading from "@/components/ui/Loading";
 import MyPagination from "@/components/new/Pagination";
 import { useGetAllMobilesQuery } from "@/redux/api/adminApi";
 import Image from "next/image";

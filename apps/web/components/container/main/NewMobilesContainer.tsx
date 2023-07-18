@@ -1,4 +1,4 @@
-import MobileCardContainer from "@/components/common/MobileCardContainer";
+import MobileCardContainer from "@/components/new/MobileCardContainer";
 import React from "react";
 
 const getData = async (path: string) => {

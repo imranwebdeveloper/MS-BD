@@ -1,5 +1,5 @@
 import Link from "next/link";
-import MobileCardContainer from "@/components/common/MobileCardContainer";
+import MobileCardContainer from "@/components/new/MobileCardContainer";
 import { notFound } from "next/navigation";
 import { headers } from "@/lib/fetchHeader";
 import { ResponsePhones } from "types";

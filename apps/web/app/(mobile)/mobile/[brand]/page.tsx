@@ -1,5 +1,4 @@
-import MobileCardContainer from "@/components/common/MobileCardContainer";
-import Pagination from "@/components/common/Pagination";
+import MobileCardContainer from "@/components/new/MobileCardContainer";
 import MyPagination from "@/components/new/Pagination";
 import UpcomingMobile from "@/components/new/UpcomingMobile";
 import { CardTitle } from "@/components/ui/card";

@@ -3,10 +3,10 @@ import React from "react";
 import { format } from "date-fns";
 import { Metadata } from "next";
 import Disclaimer from "@/components/new/Disclaimer";
-import MobilePriceTable from "@/components/common/MobilePriceTable";
+import MobilePriceTable from "@/components/new/MobilePriceTable";
 import { notFound } from "next/navigation";
 import { headers } from "@/lib/fetchHeader";
-import PhoneContent from "@/components/common/PhoneContent";
+import PhoneContent from "@/components/new/PhoneContent";
 import { capitalizeFirstWord } from "@/utils/toTitleCase";
 import { Phone } from "types";
 import { CardTitle } from "@/components/ui/card";
@@ -88,12 +88,10 @@ const ModelDetails = async ({ params }: { params: { id: string } }) => {
               className="max-w-[140px] max-h-40 mx-auto "
             />
           </div>
-          <div className="md:col-span-2 mx-2  px-3 flex flex-col justify-center   ">
+          <div className="md:col-span-2 mx-2  md:px-3 flex flex-col justify-center   ">
             <MobilePriceTable variants={data.variants} date={updateDate} />
             <div className="mt-2 flex gap-2 border  items-center md:hidden mb-3 ">
-              <p className="px-2 py-1 bg-slate-50 border-r text-xs ">
-                Last Updated
-              </p>
+              <p className="px-2 py-1 bg-slate-50 border-r text-xs ">Updated</p>
               <time dateTime={updateDate} className="text-xs">
                 {updateDate}
               </time>
