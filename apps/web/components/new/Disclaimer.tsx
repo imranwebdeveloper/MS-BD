@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import React from "react";
 
@@ -9,7 +8,7 @@ const Disclaimer = () => {
         <strong>Disclaimer: </strong>We do not guarantee that the information on
         our page is 100% accurate.
       </small>
-      <Link href="/disclaimer" className="text-link-text-light px-1">
+      <Link href="/disclaimer" className="text-blue-600 px-1">
         <small>Read more</small>
       </Link>
     </p>

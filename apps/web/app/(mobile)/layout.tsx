@@ -13,7 +13,7 @@ const layout = ({ children }: MobileLayoutProps) => {
     <div className="flex flex-col min-h-screen">
       <Header />
       <NavContainer />
-      <main className="root flex-1 ">{children}</main>
+      <main className="root flex-1 flex flex-col">{children}</main>
       <Footer />
     </div>
   );

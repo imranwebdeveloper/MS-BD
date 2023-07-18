@@ -30,15 +30,15 @@ const SubHeader: React.FC<Props> = ({ slug }) => {
         return (
           <li
             key={index}
-            className={`list-none py-1 px-2  md:px-3 ${
+            className={`list-none py-1  w-full  px-2 md:px-4  ${
               slug === item.toLowerCase()
-                ? buttonVariants({ variant: "default" })
+                ? "bg-orange-100 font-semibold text-orange-600"
                 : ""
             }`}
           >
             <Link
               href={`/mobile/${item.toLowerCase()}`}
-              className="text-center "
+              className="text-center text-sm md:text-base"
             >
               {item}
             </Link>

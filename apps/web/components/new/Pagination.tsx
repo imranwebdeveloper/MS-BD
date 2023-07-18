@@ -10,7 +10,7 @@ interface Props {
   total?: number;
   pageSize?: number | 12;
   path: string;
-  currentPage: any;
+  currentPage: string;
 }
 
 const MyPagination: React.FC<Props> = ({
@@ -25,15 +25,16 @@ const MyPagination: React.FC<Props> = ({
     router.push(`${path}${page}`);
   };
 
+  const activePage = currentPage ? currentPage : "1";
   return (
     <Pagination
-      className="flex gap-2 bg-white justify-center p-4 rounded md:text-base "
+      className="flex gap-2 justify-center p-4 rounded md:text-base "
       total={total}
       pageSize={pageSize}
       nextIcon={<ChevronRight />}
       prevIcon={<ChevronLeft />}
       onChange={onchangeHandler}
-      defaultCurrent={Number(currentPage)}
+      defaultCurrent={Number(activePage)}
     />
   );
 };

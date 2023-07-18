@@ -36,18 +36,23 @@ const PriceRange: React.FC<Props> = ({ slug }) => {
   return (
     <div className="md:flex items-center md:gap-2 gap-1 mt-2">
       <p className="font-bold hidden md:flex">Price Range :</p>
-      <ul className="flex justify-start whitespace-nowrap gap-1  text-sm md:text-base divide-x rounded  overflow-x-scroll scrollbar-hide ">
+      <ul className="flex justify-start whitespace-nowrap gap-1 divide-x rounded  overflow-x-scroll scrollbar-hide ">
         {ranges.map((item, i) => {
           return (
             <li
               key={i}
               className={`px-2 md:px-4 py-1 border rounded-full  ${
                 slug === item.link
-                  ? " bg-primary-bg-dark text-primary-text-dark"
+                  ? " bg-orange-100 font-semibold text-orange-600"
                   : "bg-white"
               } `}
             >
-              <Link href={`/price-range/${item.link}`}>Tk {item.title}</Link>
+              <Link
+                href={`/price-range/${item.link}`}
+                className="text-xs md:text-base"
+              >
+                Tk {item.title}
+              </Link>
             </li>
           );
         })}

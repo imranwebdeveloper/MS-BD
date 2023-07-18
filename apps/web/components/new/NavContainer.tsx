@@ -1,6 +1,6 @@
 "use client";
-import PhoneCategory from "@/components/common/PhoneCategory";
-import PriceRange from "@/components/common/PriceRange";
+import PhoneCategory from "@/components/container/header/PhoneCategory";
+import PriceRange from "@/components/container/header/PriceRange";
 import SubHeader from "@/components/container/header/SubHeader";
 import { useParams } from "next/navigation";
 import React from "react";

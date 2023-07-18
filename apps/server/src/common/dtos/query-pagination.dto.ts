@@ -23,5 +23,9 @@ export class MobileQueryDto {
 
   @IsString()
   @IsOptional()
-  model: string;
+  model?: string;
+
+  @IsString()
+  @IsOptional()
+  priceRange?: string;
 }

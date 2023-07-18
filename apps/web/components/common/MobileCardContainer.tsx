@@ -9,13 +9,13 @@ interface Props {
 
 const MobileCardContainer = ({ data }: Props) => {
   return (
-    <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5  rounded gap-2 md:gap-4  ">
+    <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  rounded gap-2 md:gap-4 mt-2 ">
       {data.length <= 0 && <h1 className="text-2xl">No Data Found</h1>}
       {data.map((item) => {
         return (
           <Link
             key={item._id}
-            href={`mobile/${item.brand.toLowerCase()}/${item.model_id}`}
+            href={`/mobile/${item.brand.toLowerCase()}/${item.model_id}`}
           >
             <article className="transition cursor-pointer hover:scale-105  flex flex-col border rounded-md bg-white p-4">
               <header>
@@ -29,13 +29,15 @@ const MobileCardContainer = ({ data }: Props) => {
                 />
               </header>
 
-              <main className="text-sm text-center mt-1">
-                <p className="font-bold md:text-base ">{item.brand}</p>
-                <p>{item.model}</p>
-              </main>
-              <footer>
+              <main className=" text-center mt-1">
+                <p className="text-slate-700 font-semibold text-sm md:text-base tracking-tight">
+                  {item.brand}
+                </p>
+                <p className="text-slate-600 text-sm md:text-base tracking-tight">
+                  {item.model}
+                </p>
                 <CardPrice prices={item.variants} />
-              </footer>
+              </main>
             </article>
           </Link>
         );

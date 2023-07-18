@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import MyPagination from "@/components/new/Pagination";
 import { Phones, ResponsePhones } from "types";
+import { CardTitle } from "@/components/ui/card";
 
 const getData = async ({
   page,
@@ -71,21 +72,25 @@ const LatestMobiles = async ({
   const { count, mobiles, limit } = data;
 
   return (
-    <section className="page my-8">
-      <div>
-        <div className="my-2 ">
-          <h1 className="text-2xl">Latest Mobile Phones Price in Bangladesh</h1>
-        </div>
+    <section className="page flex-1 flex flex-col my-4">
+      <CardTitle className=" text-lg md:text-2xl mt-4 md:mt-6">
+        Latest Mobile Phones Price in Bangladesh
+      </CardTitle>
+
+      <div className="flex-1">
         <MobileCardContainer data={mobiles} />
       </div>
-      {limit < count && (
-        <MyPagination
-          total={count}
-          pageSize={limit}
-          path={`mobile/latest?status=AVAILABLE&limit=20&page=`}
-          currentPage={searchParams.page}
-        />
-      )}
+
+      <div className="mt-2">
+        {limit < count && (
+          <MyPagination
+            total={count}
+            pageSize={limit}
+            path={`mobile/latest?status=AVAILABLE&limit=20&page=`}
+            currentPage={searchParams.page}
+          />
+        )}
+      </div>
     </section>
   );
 };

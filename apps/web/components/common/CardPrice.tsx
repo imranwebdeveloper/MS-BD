@@ -16,7 +16,7 @@ const CardPrice: React.FC<Props> = ({ prices }) => {
     }
   });
   return (
-    <p className="text-sm text-center font-bold text-link-text-light">
+    <p className="text-sm md:text-base text-center font-semibold text-orange-600">
       {price ? `${price} Tk` : "Coming Soon "}
     </p>
   );

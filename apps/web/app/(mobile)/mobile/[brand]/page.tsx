@@ -1,16 +1,27 @@
 import MobileCardContainer from "@/components/common/MobileCardContainer";
 import Pagination from "@/components/common/Pagination";
+import MyPagination from "@/components/new/Pagination";
+import UpcomingMobile from "@/components/new/UpcomingMobile";
+import { CardTitle } from "@/components/ui/card";
 import { headers } from "@/lib/fetchHeader";
 import { toTitleCase } from "@/utils/toTitleCase";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ResponsePhones } from "types";
 
-const getData = async (slug: string, pageNumber?: string) => {
-  let url: string;
-  url = pageNumber
-    ? (`${process.env["API_URL"]}/mobiles/brand/${slug}?page=${pageNumber}` as string)
-    : (`${process.env["API_URL"]}/mobiles/brand/${slug}` as string);
-  const res = await fetch(url, { headers, cache: "no-cache" });
+const getData = async ({
+  limit,
+  page = "1",
+  brand,
+}: {
+  page: string;
+  limit: string;
+  brand: string;
+}) => {
+  const res = await fetch(
+    `${process.env["API_URL"]}/mobiles?brand=${brand}&status=public&page=${page}&limit=12` as string,
+    { headers, cache: "no-cache" }
+  );
   if (!res.ok) throw new Error(await res.json().then((data) => data.message));
   return res.json();
 };
@@ -59,35 +70,41 @@ const BrandModelList = async ({
   params,
   searchParams,
 }: {
+  searchParams: { page: string; limit: string };
   params: { brand: string };
-  searchParams: { page: string };
 }) => {
-  const { data } = await getData(params.brand, searchParams.page);
+  const { data }: ResponsePhones = await getData({
+    limit: searchParams.limit,
+    brand: params.brand,
+    page: searchParams.page,
+  });
 
   if (!data) {
     notFound();
   }
-  const { parPage, count, mobiles } = data;
-  const currenPage = parseInt(searchParams.page);
+  const { limit, count, mobiles } = data;
   const brandTitle = toTitleCase(params.brand);
 
   return (
-    <div className="main">
-      <section className="layout container">
-        <div className="mb-2 mt-4">
-          <h1>{`${brandTitle} Mobiles`}</h1>
-        </div>
+    <section className="page flex-1 flex flex-col my-4">
+      <CardTitle className=" text-lg md:text-2xl mt-4 md:mt-6">
+        {brandTitle} Phones Price in Bangladesh
+      </CardTitle>
+
+      <div className="flex-1">
         <MobileCardContainer data={mobiles} />
-        {mobiles.length >= parPage && (
-          <Pagination
-            path={`mobile/${params.brand}`}
-            parPage={parPage}
-            totalProduct={count}
-            currenPage={currenPage ? currenPage : 1}
+      </div>
+      <div className="mt-2">
+        {limit < count && (
+          <MyPagination
+            total={count}
+            pageSize={limit}
+            path={`/mobile/${params.brand}?page=`}
+            currentPage={searchParams.page}
           />
         )}
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

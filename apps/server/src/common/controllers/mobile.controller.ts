@@ -24,9 +24,9 @@ import { MobileQueryDto } from '../dtos/query-pagination.dto';
 export class MobileController {
   constructor(private readonly mobileService: MobileService) {}
 
-  // New and update code
   @Get()
   async getMobiles(@Query() mobileQueryDto: MobileQueryDto) {
+    console.log(mobileQueryDto);
     const data = await this.mobileService.getProductByQuery(mobileQueryDto);
     return data;
   }
@@ -78,51 +78,5 @@ export class MobileController {
   async deleteMobileById(@Param('id') id: string) {
     const data = await this.mobileService.deleteMobileById(id);
     return data;
-  }
-
-  // New and update code
-
-  @Get('price/:range')
-  async getMobilesByPriceRange(
-    @Param('range') range: string,
-    @Query('page') page: string,
-    @Query('limit') limit: string,
-  ): Promise<ResType<any>> {
-    const rangeArray = range.split('-').map((item) => Number(item));
-    console.log(rangeArray);
-    const { count, mobiles, perPage } =
-      await this.mobileService.getMobilesByPriceRange(page, limit, rangeArray);
-    return {
-      message: 'success',
-      data: { count, mobiles: mobiles, perPage },
-    };
-  }
-
-  @Roles(Role.admin)
-  @Post('new-mobile')
-  async addNewMobile(@Body() mobileDto: MobileDto): Promise<ResType<any>> {
-    const model_id = `${mobileDto.brandName}-${mobileDto.model
-      .split(' ')
-      .join('-')}`.toLowerCase();
-    const category = mobileDto.category.split(' ').join('-').toLowerCase();
-    const data = await this.mobileService.saveNewMobile({
-      ...mobileDto,
-      model_id,
-      category,
-    });
-    return { message: 'success', data };
-  }
-
-  @Roles(Role.admin)
-  @Put('update-content')
-  async updateMobileContent(@Body() body: any): Promise<ResType<MobileDto>> {
-    const { id, content } = body;
-
-    const data = await this.mobileService.updateMobileContent<MobileDto>(
-      id,
-      content,
-    );
-
-    return { message: 'success', data };
   }
 }
