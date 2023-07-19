@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
       if (url.startsWith("/")) {
         return baseUrl;
       }
-      return `${baseUrl}/admin`;
+      return `${baseUrl}/dashboard`;
     },
   },
 };

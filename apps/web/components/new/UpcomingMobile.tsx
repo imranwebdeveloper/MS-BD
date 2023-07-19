@@ -2,14 +2,15 @@
 
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ResponsePhones } from "types";
-import Link from "next/link";
-import useDeviceSize from "@/hook/useDevice";
-import Image from "next/image";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { Autoplay, Pagination, Grid } from "swiper/modules";
+import { ResponsePhones } from "types";
+import Image from "next/image";
+import Link from "next/link";
+import useDeviceSize from "@/hook/useDevice";
 
 const UpcomingMobile = ({ data }: { data: ResponsePhones }) => {
   const [width] = useDeviceSize();
@@ -18,10 +19,19 @@ const UpcomingMobile = ({ data }: { data: ResponsePhones }) => {
     <div className="relative mt-2">
       <Swiper
         slidesPerView={width > 768 ? 5 : 3}
+        // pagination={{
+        //   clickable: true,
+        // }}
         spaceBetween={width > 768 ? 15 : 5}
-        autoplay={{ delay: 2500 }}
+        autoplay={{
+          delay: 2500,
+          //   disableOnInteraction: false,
+        }}
+        modules={[Autoplay, Pagination, Grid]}
         className="mySwiper"
-        grid={{ rows: 1 }}
+        grid={{
+          rows: 1,
+        }}
       >
         {data.data.mobiles.map((item) => {
           return (

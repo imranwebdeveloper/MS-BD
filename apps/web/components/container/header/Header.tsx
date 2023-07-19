@@ -46,13 +46,6 @@ const Header = () => {
             <BsSearch />
           </button>
           <Search />
-          <button
-            onClick={() => signIn()}
-            className="btn-login"
-            aria-label="login"
-          >
-            Login
-          </button>
         </div>
       </div>
 

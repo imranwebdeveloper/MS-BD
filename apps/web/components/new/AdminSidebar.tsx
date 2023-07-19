@@ -5,9 +5,13 @@ import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
 import { Home, Smartphone } from "lucide-react";
+import { signOut } from "next-auth/react";
+import { removeUser } from "@/redux/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const AdminSidebar: React.FC = () => {
   const path = usePathname();
+  const dispatch = useDispatch();
 
   return (
     <div className=" w-64 bg-white min-h-full">
@@ -186,7 +190,13 @@ const AdminSidebar: React.FC = () => {
             </a>
           </li>
           <li>
-            <Link href="/" className={`dashboard_link`}>
+            <button
+              className={`dashboard_link`}
+              onClick={() => {
+                dispatch(removeUser());
+                signOut({ callbackUrl: "/" });
+              }}
+            >
               <span className="inline-flex justify-center items-center ml-4">
                 <svg
                   className="w-5 h-5"
@@ -206,7 +216,7 @@ const AdminSidebar: React.FC = () => {
               <span className="ml-2 text-sm tracking-wide truncate">
                 Logout
               </span>
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
