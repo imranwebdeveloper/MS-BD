@@ -1,81 +1,42 @@
-# Turborepo starter
+# Mobile Seller BD Monorepo Overview
 
-This is an official starter Turborepo.
+[Mobile Seller BD](https://mobile-seller-bd-client.vercel.app) is a Full Stack web application that provides the latest news, reviews, and information about mobile phones, tablets, and related products. This monorepo contains both the frontend and backend components of the application.
 
-## Using this example
+Live link : [https://mobile-seller-bd-client.vercel.app](https://mobile-seller-bd-client.vercel.app)
 
-Run the following command:
+## Frontend Technologies
 
-```sh
-npx create-turbo@latest
-```
+- TypeScript
+- NextJS
+- Tailwind CSS
+- Redux
+- **Other Libraries:** `Date-fns`, `swiper`, `next-auth`, `shadCN`, `react-icons`, `react-hot-toast`, and more.
 
-## What's inside?
+## Backend Technologies
 
-This Turborepo includes the following packages/apps:
+- TypeScript
+- NestJS
+- Express.js
+- Firebase Admin
+- MongoDB
+- **Other Libraries:** `Passport`, `axios`, `bcrypt`, `mongoose`, `JWT`, `multer`, `class-transformer`, `class-validator`, `helmet`, and more.
 
-### Apps and Packages
+## Frontend features
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- **API Integration:** Seamlessly integrated with REST APIs to provide up-to-date information to users.
+- **Role-based Admin Dashboard:** Protected with authentication, featuring different access levels for administrators and editors.
+- **Product Management:** Administrators can perform various actions such as adding, deleting, and updating products. Editors have the ability to edit products.
+- **Public View and Admin Dashboard:** a user-friendly interface for the public to browse mobile products, as well as a dedicated admin dashboard for managing content
+- **Responsive Design:** Fully responsive design ensures optimal user experience across both mobile and desktop devices.
+- **SEO and Best Practices:** Implemented with a focus on search engine optimization (SEO) and adhering to industry best practices for optimal performance and user engagement.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Backend Features
 
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- **User Authentication and Authorization:** Implemented using JWT tokens and Passport strategies to ensure secure user access.
+- **API Endpoints for Management:** Provides a set of well-defined API endpoints for managing mobile phone products, user accounts, and related data.
+- **Efficient Data Storage with MongoDB:** Integrated with Mongoose for seamless data storage and retrieval
+- **Firebase Admin Integration:** Utilizes Firebase services for enhanced functionality and cloud storage.
+- **File Upload Capability:** Supports file uploads for various purposes, enhancing the user experience.
+- **Protected API Access:** Ensures the protection of sensitive data by restricting public access to designated API routes.
+- **Data Validation and Transformation:** Utilizes class-validator and class-transformer to validate and transform data, maintaining data integrity.
+- **Enhanced Security with Helmet Middleware:** Implements Helmet middleware to bolster security by adding necessary HTTP headers.
